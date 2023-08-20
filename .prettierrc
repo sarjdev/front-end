@@ -1,0 +1,13 @@
+{
+    "useTabs": false,
+    "printWidth": 100,
+    "tabWidth": 2,
+    "semi": true,
+    "singleQuote": false,
+    "trailingComma": "none",
+    "jsxBracketSameLine": true,
+    "bracketSpacing": true,
+    "rcVerbose": true,
+    "javascript.implicitProjectConfig.experimentalDecorators": true,
+    "breadcrumbs.enabled": true
+  }

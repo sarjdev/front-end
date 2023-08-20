@@ -1,3 +1,120 @@
 {
-  "extends": "next/core-web-vitals"
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "airbnb-typescript",
+    "prettier",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/recommended",
+    "plugin:react/recommended",
+    "airbnb/hooks",
+    "next"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module",
+    "project": ["tsconfig.json"]
+  },
+  "plugins": ["react", "@typescript-eslint"],
+  "rules": {
+    "react/no-unstable-nested-components": "off",
+    "react/jsx-sort-props": ["error", { "shorthandFirst": true }],
+    "import/no-extraneous-dependencies": ["off", { "devDependencies": ["**/*.stories.tsx"] }],
+    "@typescript-eslint/no-var-requires": "off",
+    "react/require-default-props": [0],
+    "@typescript-eslint/no-unused-vars": ["error", { "ignoreRestSiblings": true }],
+    "no-unused-vars": "off",
+    "react/prop-types": "off",
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["off"],
+    "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".ts"] }],
+    "import/prefer-default-export": "off",
+    "react/jsx-key": 2,
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-no-bind": "off",
+    "import/no-named-as-default-member": "off",
+    "import/default": "off",
+    "react/display-name": "off",
+    "import/no-named-as-default": 0,
+    "import/order": [
+      "error",
+      {
+        "alphabetize": {
+          "order": "asc"
+        },
+        "groups": ["builtin", "external", "internal"],
+        "pathGroupsExcludedImportTypes": ["react"],
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "components/**",
+            "group": "internal",
+            "position": "before"
+          },
+          {
+            "pattern": "screens/**",
+            "group": "internal",
+            "position": "before"
+          },
+          {
+            "pattern": "utils/**",
+            "group": "internal",
+            "position": "before"
+          },
+          {
+            "pattern": "locales/**",
+            "group": "internal",
+            "position": "before"
+          },
+          {
+            "pattern": "{type,store,hooks,navigations}/**",
+            "group": "internal",
+            "position": "before"
+          },
+          {
+            "pattern": "assets/**",
+            "group": "internal",
+            "position": "before"
+          },
+          {
+            "pattern": "common/**",
+            "group": "internal",
+            "position": "before"
+          },
+          {
+            "pattern": "../**",
+            "group": "internal",
+            "position": "before"
+          }
+        ],
+        "newlines-between": "always"
+      }
+    ]
+  },
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true,
+        "extensions": [".js", ".jsx", ".ts", ".tsx"],
+        "project": "./"
+      }
+    },
+    "react": {
+      "version": "detect" // Tells eslint-plugin-react to automatically detect the version of React to use
+    }
+  },
+  "ignorePatterns": ["node_modules/", "metro.config.js", "src/api/*"]
 }

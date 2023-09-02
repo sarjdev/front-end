@@ -4,13 +4,16 @@ import { TileLayer } from "react-leaflet";
 import { latLng, latLngBounds } from "leaflet";
 import dynamic from "next/dynamic";
 import MarkerComponent from "../Marker/MarkerComponent";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useGetLocations } from "./actions";
+import { LocationResponse } from "@/app/types";
 
 const Map = dynamic(() => import("./Map"), {
     ssr: false,
 });
 
 const MapContent = () => {
+  const [data, setData] = useState<LocationResponse[] | null>(null);
   const mapBoundaries = {
     southWest: latLng(34.025514, 25.584519),
     northEast: latLng(42.211024, 44.823563),
@@ -24,13 +27,25 @@ const MapContent = () => {
  }
   const baseMapUrl = `https://mt0.google.com/vt/lyrs=m&scale=${dpr}&hl=en&x={x}&y={y}&z={z}&apistyle=s.e%3Al.i%7Cp.v%3Aoff%2Cs.t%3A3%7Cs.e%3Ag%7C`;
 
+  const locationData = useGetLocations();
+
+  useEffect(() => {
+    if (locationData.isSuccess) {
+      setData(locationData?.data?.chargingStations)
+    }
+  }, [locationData])
+
+  if (locationData?.isFetching || locationData?.isRefetching) {
+    return <div>Loading...</div>
+  }
+
   return (
       <Map
         zoomControl={false}
         attributionControl={false}
         center={[51.505, -0.09]}
-        zoom={8}
-        minZoom={7}
+        zoom={4}
+        minZoom={5}
         zoomSnap={1}
         zoomDelta={1}
         whenReady={(map: any) => {
@@ -44,7 +59,13 @@ const MapContent = () => {
         maxZoom={18}
       >
         <TileLayer url={baseMapUrl} className="w-100 h-100" />
-        <MarkerComponent position={[38.734802, 35.467987]} />
+        {
+          data ? (
+            data?.map(item => <MarkerComponent key={item.id} position={[item?.location?.lat, item?.location?.lon]} />)
+          )
+          : null
+        }
+        
       </Map>
   );
 };

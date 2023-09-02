@@ -3,6 +3,8 @@
 import { TileLayer } from "react-leaflet";
 import { latLng, latLngBounds } from "leaflet";
 import dynamic from "next/dynamic";
+import MarkerComponent from "../Marker/MarkerComponent";
+import { useEffect } from "react";
 
 const Map = dynamic(() => import("./Map"), {
     ssr: false,
@@ -42,6 +44,7 @@ const MapContent = () => {
         maxZoom={18}
       >
         <TileLayer url={baseMapUrl} className="w-100 h-100" />
+        <MarkerComponent position={[38.734802, 35.467987]} />
       </Map>
   );
 };

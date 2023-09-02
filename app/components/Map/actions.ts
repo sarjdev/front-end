@@ -11,7 +11,12 @@ export const useGetLocations = () => {
         return axiosInstance.get(`/search`)?.then(({data}) => data);
       },
       {
-        enabled: true
+        enabled: true,
+        keepPreviousData: true,
+        refetchOnWindowFocus: false,
+        refetchInterval: false,
+        refetchOnMount: false,
+        refetchOnReconnect: false,
       }
     );
   };

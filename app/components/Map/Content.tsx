@@ -7,6 +7,7 @@ import MarkerComponent from "../Marker/MarkerComponent";
 import { useEffect, useState } from "react";
 import { useGetLocations } from "./actions";
 import { LocationResponse } from "@/app/types";
+import useUserLocation from "@/app/hooks/useUserLocation";
 
 const Map = dynamic(() => import("./Map"), {
     ssr: false,
@@ -28,14 +29,15 @@ const MapContent = () => {
   const baseMapUrl = `https://mt0.google.com/vt/lyrs=m&scale=${dpr}&hl=en&x={x}&y={y}&z={z}&apistyle=s.e%3Al.i%7Cp.v%3Aoff%2Cs.t%3A3%7Cs.e%3Ag%7C`;
 
   const locationData = useGetLocations();
+  const { location: userLocation, loading } = useUserLocation();
 
   useEffect(() => {
     if (locationData.isSuccess) {
       setData(locationData?.data?.chargingStations)
     }
-  }, [locationData])
+  }, [locationData.isSuccess])
 
-  if (locationData?.isFetching || locationData?.isRefetching) {
+  if (locationData?.isFetching || locationData?.isRefetching || loading) {
     return <div>Loading...</div>
   }
 
@@ -43,9 +45,9 @@ const MapContent = () => {
       <Map
         zoomControl={false}
         attributionControl={false}
-        center={[51.505, -0.09]}
-        zoom={4}
-        minZoom={5}
+        center={userLocation || [51.505, -0.09]}
+        zoom={6}
+        minZoom={7}
         zoomSnap={1}
         zoomDelta={1}
         whenReady={(map: any) => {

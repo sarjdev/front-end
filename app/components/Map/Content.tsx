@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { useGetLocations } from "./actions";
 import { LocationResponse } from "@/app/types";
 import useUserLocation from "@/app/hooks/useUserLocation";
+import Loading from "../Loading/Loading";
 
 const Map = dynamic(() => import("./Map"), {
     ssr: false,
@@ -38,7 +39,7 @@ const MapContent = () => {
   }, [locationData.isSuccess])
 
   if (locationData?.isFetching || locationData?.isRefetching || loading) {
-    return <div>Loading...</div>
+    return <Loading />
   }
 
   return (

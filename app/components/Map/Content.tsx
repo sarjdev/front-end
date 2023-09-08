@@ -42,12 +42,15 @@ const MapContent = () => {
     return <Loading />
   }
 
+  const zoom = userLocation ? 11 : 6;
+  const locationCenter = userLocation || [51.505, -0.09];
+
   return (
       <Map
         zoomControl={false}
         attributionControl={false}
-        center={userLocation || [51.505, -0.09]}
-        zoom={6}
+        center={locationCenter}
+        zoom={zoom}
         minZoom={7}
         zoomSnap={1}
         zoomDelta={1}

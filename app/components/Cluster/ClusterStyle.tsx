@@ -12,6 +12,7 @@ const styles = css`
       .cluster-inner {
         background-color: ${tag.color}DE;
         border: ${tag.color} 2px solid;
+        border-radius: 100px;
         color: #212121;
         width: 36px;
         height: 36px;

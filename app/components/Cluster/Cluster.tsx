@@ -46,7 +46,7 @@ export const Cluster = ({ data, onMarkerClick }: Props) => {
       bounds.getNorthEast().lat,
     ],
     zoom: map.getZoom(),
-    options: { radius: 150, maxZoom: 17 },
+    options: { radius: 300, maxZoom: 17 },
   });
 
   return (

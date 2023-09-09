@@ -67,7 +67,7 @@ const MapContent = () => {
         <TileLayer url={baseMapUrl} className="w-100 h-100" />
         {
           data ? (
-            data?.map(item => <MarkerComponent key={item.id} position={[item?.location?.lat, item?.location?.lon]} />)
+            data?.map(item => <MarkerComponent key={item.id} position={[item?.location?.lat, item?.location?.lon]} icon={item?.provider} />)
           )
           : null
         }

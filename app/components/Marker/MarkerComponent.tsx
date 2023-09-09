@@ -34,7 +34,7 @@ const MarkerComponent: React.FC<MarkerProps> = ({ position, popupContent, icon }
   const markerIcon = new Leaflet.Icon({
     iconUrl: renderIcon(icon) || markerIconPng.src,
     iconRetinaUrl: renderIcon(icon) || markerIconPng.src,
-    iconSize: [28, 28],
+    iconSize: [48, 48],
     iconAnchor: [14, 14]
     // shadowUrl: null,
     // shadowSize: null,

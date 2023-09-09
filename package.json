@@ -9,7 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
     "@types/leaflet": "^1.9.3",
+    "@types/leaflet.markercluster": "^1.5.2",
+    "@types/lodash.omit": "^4.5.7",
     "@types/node": "20.5.1",
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",
@@ -18,13 +21,21 @@
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.19",
     "leaflet": "^1.9.4",
+    "leaflet.markercluster": "^1.5.3",
+    "localforage": "^1.10.0",
+    "lodash.omit": "^4.5.0",
     "next": "13.4.19",
     "postcss": "8.4.28",
+    "query-string": "^8.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-leaflet": "^4.2.1",
     "react-query": "^3.39.3",
     "sass": "^1.66.1",
-    "typescript": "5.1.6"
+    "supercluster": "^7.1.5",
+    "typescript": "5.1.6",
+    "use-debounce": "^9.0.4",
+    "use-supercluster": "^0.4.0",
+    "zustand": "^4.4.1"
   }
 }

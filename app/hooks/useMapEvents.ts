@@ -26,7 +26,6 @@ export const useMapEvents = () => {
       const zoom = map.getZoom();
       let localCoordinates = value;
 
-      // https://github.com/acikkaynak/deprem-yardim-frontend/issues/368
       const shouldExpandCoordinates =
         zoom === 18 || zoom === 17 || zoom === 16 || zoom === 15;
 

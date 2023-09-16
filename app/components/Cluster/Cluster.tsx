@@ -3,14 +3,16 @@ import { Marker, useMap } from "react-leaflet";
 import useSupercluster from "use-supercluster";
 import { LocationResponse } from "@/app/types";
 import MarkerComponent from "../Marker/MarkerComponent";
-import { findTagByClusterCount } from "../Tag/Tag";
+import { findClusterData } from "./ClusterData";
 
-const fetchIcon = (count: number) => {
-  const tag = findTagByClusterCount(count);
+import "./style.scss";
+
+const getIcon = (count: number) => {
+  const data = findClusterData(count);
 
   return L.divIcon({
-    html: `<div class="cluster-inner"><span>${count}</span></div>`,
-    className: `leaflet-marker-icon marker-cluster leaflet-interactive leaflet-custom-cluster-${tag.id}`,
+    html: `<div class="custom-cluster-inner-${data.intensity}"><span>${count}</span></div>`,
+    className: `leaflet-marker-icon marker-cluster leaflet-interactive custom-cluster`,
   });
 };
 
@@ -53,7 +55,6 @@ export const Cluster = ({ data, onMarkerClick }: Props) => {
     <>
       {clusters.map((cluster) => {
         const [longitude, latitude] = cluster.geometry.coordinates;
-        // the point may be either a cluster or a crime point
         const { cluster: isCluster, point_count: pointCount } =
           cluster.properties;
 
@@ -62,7 +63,7 @@ export const Cluster = ({ data, onMarkerClick }: Props) => {
             <Marker
               key={`cluster-${cluster.id}`}
               position={[latitude, longitude]}
-              icon={fetchIcon(pointCount)}
+              icon={getIcon(pointCount)}
               eventHandlers={{
                 click: () => {
                   const expansionZoom = Math.min(

@@ -1,0 +1,44 @@
+.custom-cluster {
+    &-inner {
+      border-radius: 100px;
+      color: #212121;
+      width: 36px;
+      height: 36px;
+      opacity: 0.9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: bold;
+
+        &-safe {
+            background-color: #ffff00;
+            border: #ffff00 2px solid;
+        }
+
+        &-low {
+            background-color: #ffd700;
+            border: #ffd700 2px solid;
+        }
+
+        &-mid-low {
+            background-color: #ffaf00;
+            border: #ffaf00 2px solid;
+        }
+
+        &-mid {
+            background-color: #ff8700;
+            border: #ff8700 2px solid;
+        }
+
+        &-mid-high {
+            background-color: #ff5f00;
+            border: #ff5f00 2px solid;
+        }
+
+        &-high {
+            background-color: #eb2f2f;
+            border: #eb2f2f 2px solid;
+        }
+    }
+  }

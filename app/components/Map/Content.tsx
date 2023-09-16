@@ -2,16 +2,18 @@
 import { TileLayer } from "react-leaflet";
 import { latLng, latLngBounds } from "leaflet";
 import dynamic from "next/dynamic";
-import MarkerComponent from "../Marker/MarkerComponent";
 import { useEffect, useState } from "react";
 import { useGetLocations } from "./actions";
 import { LocationResponse } from "@/app/types";
 import useUserLocation from "@/app/hooks/useUserLocation";
 import Loading from "../Loading/Loading";
 import { Cluster } from "../Cluster/Cluster";
-import { ClusterStyle } from "../Cluster/ClusterStyle";
 import { useMapEvents } from "@/app/hooks/useMapEvents";
 import { useMapGeographyStore } from "@/app/stores/mapGeographyStore";
+
+import "leaflet.markercluster/dist/MarkerCluster.css";
+import "leaflet.markercluster/dist/MarkerCluster.Default.css";
+import "leaflet/dist/leaflet.css";
 
 const Map = dynamic(() => import("./Map"), {
   ssr: false
@@ -61,7 +63,6 @@ const MapContent = () => {
 
   return (
     <>
-      <ClusterStyle />
       <Map
         zoomControl={false}
         attributionControl={false}

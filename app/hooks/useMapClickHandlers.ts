@@ -4,7 +4,7 @@ import { LeafletMouseEvent } from "leaflet";
 import * as localForage from "localforage";
 import { LocationData, LocationResponse } from "../types";
 import { useMapActions } from "../stores/mapStore";
-import { useAreasActions } from "../stores/areasStore";
+import { useMarkerActions } from "../stores/markerStore";
 
 const localForageKeys = {
   markersVisited: "markersVisited"
@@ -16,7 +16,7 @@ type MarkerVisited = {
 
 export function useMapClickHandlers() {
   const { toggleDrawer, setDrawerData, setPopUpData } = useMapActions();
-  const { setMarkerData } = useAreasActions();
+  const { setMarkerData } = useMarkerActions();
 
   const handleMarkerClick = useCallback(
     async (

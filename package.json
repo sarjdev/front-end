@@ -18,6 +18,7 @@
     "@types/react-dom": "18.2.7",
     "autoprefixer": "10.4.15",
     "axios": "^1.5.0",
+    "classnames": "^2.3.2",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.19",
     "leaflet": "^1.9.4",
@@ -37,5 +38,8 @@
     "use-debounce": "^9.0.4",
     "use-supercluster": "^0.4.0",
     "zustand": "^4.4.1"
+  },
+  "devDependencies": {
+    "@iconify-icon/react": "^1.0.8"
   }
 }

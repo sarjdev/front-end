@@ -19,6 +19,28 @@ export interface Location {
   lon: number;
 }
 
+export interface TooltipData {
+  id: string;
+  location: Location;
+  title: string;
+  plugs: Plugs[];
+  address: string;
+  pointOfInterests: [];
+  plugsTotal: number;
+  provider: Providers;
+  provideLiveStats: boolean;
+}
+
+export interface Plugs {
+  type: PlugType;
+  count: number;
+  power: string;
+}
+
+export type PlugType = "AC" | "DC";
+
+export type status = "active" | "inactive" | "inuse";
+
 export type Providers = "ESARJ" | "ZES";
 
 export type EVENT_TYPES = "movestart" | "moveend" | "zoomstart" | "zoomend" | "ready";

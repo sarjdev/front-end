@@ -18,10 +18,9 @@ const getIcon = (count: number) => {
 
 type Props = {
   data: LocationResponse[] | null;
-  onMarkerClick?: null;
 };
 
-export const Cluster = ({ data, onMarkerClick }: Props) => {
+export const Cluster = ({ data }: Props) => {
   const map = useMap();
   const bounds = map.getBounds();
 
@@ -55,9 +54,8 @@ export const Cluster = ({ data, onMarkerClick }: Props) => {
     <>
       {clusters.map((cluster) => {
         const [longitude, latitude] = cluster.geometry.coordinates;
-        const { cluster: isCluster, point_count: pointCount } =
+        const { cluster: isCluster, point_count: pointCount, id } =
           cluster.properties;
-
         if (isCluster) {
           return (
             <Marker
@@ -80,7 +78,7 @@ export const Cluster = ({ data, onMarkerClick }: Props) => {
         }
 
         return (
-            <MarkerComponent key={`cluster-${cluster.properties.id}`} position={[latitude, longitude]} icon={cluster?.item?.provider} />
+            <MarkerComponent key={`cluster-${cluster.properties.id}`} position={[latitude, longitude]} icon={cluster?.item?.provider} chargingStationId={id} />
         );
       })}
     </>

@@ -7,8 +7,9 @@ import markerIconPng from "@/app/assets/images/marker.png";
 import meIcon from "@/app/assets/images/me.svg";
 import msIcon from "@/app/assets/images/ms.svg";
 import mzIcon from "@/app/assets/images/mz.svg";
+import maIcon from "@/app/assets/images/ma.svg";
 import { useState } from "react";
-import { PlugType, TooltipData } from "@/app/types";
+import { PlugType, Providers, ProvidersEnum, TooltipData } from "@/app/types";
 import { Icon } from "@iconify-icon/react";
 
 import "./style.scss";
@@ -17,7 +18,7 @@ import classNames from "classnames";
 
 interface MarkerProps {
   position: LatLngExpression;
-  icon?: "ESARJ" | "ZES" | "SHARZ";
+  icon?: Providers;
   chargingStationId: string;
 }
 
@@ -66,17 +67,19 @@ const MarkerComponent: React.FC<MarkerProps> = ({ position, icon, chargingStatio
     }
   };
 
-  const renderIcon = (icon?: "ESARJ" | "ZES" | "SHARZ") => {
+  const renderIcon = (icon?: Providers) => {
     if (icon) {
       switch (icon) {
-        case "ESARJ":
+        case ProvidersEnum.ESARJ:
           return meIcon.src;
-        case "SHARZ":
+        case ProvidersEnum.SHARZ:
           return msIcon.src;
-        case "ZES":
+        case ProvidersEnum.ZES:
           return mzIcon.src;
+        case ProvidersEnum.AKSA:
+          return maIcon.src;
         default:
-          return meIcon.src;
+          return markerIconPng.src;
       }
     } else {
       return markerIconPng.src;

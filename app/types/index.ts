@@ -41,7 +41,7 @@ export type PlugType = "AC" | "DC";
 
 export type status = "active" | "inactive" | "inuse";
 
-export type Providers = "ESARJ" | "ZES";
+export type Providers = "ESARJ" | "ZES" | "SHARZ" | "AKSA";
 
 export type EVENT_TYPES = "movestart" | "moveend" | "zoomstart" | "zoomend" | "ready";
 
@@ -52,3 +52,10 @@ export type ClusterPopupData = {
 };
 
 export type DeviceType = "mobile" | "desktop";
+
+export enum ProvidersEnum {
+  ESARJ = "ESARJ",
+  ZES = "ZES",
+  SHARZ = "SHARZ",
+  AKSA = "AKSA"
+}

@@ -29,39 +29,11 @@ const MarkerComponent: React.FC<MarkerProps> = ({ position, icon, chargingStatio
     chargingStationId: chargingStationId.replace("#", "%23")
   });
 
-  const handleMarkerClick = async (position: LatLngExpression) => {
+  const handleMarkerClick = async () => {
     try {
-      // const response = await fetch(`YOUR_ENDPOINT?lat=${latitude}&lon=${longitude}`);
-      // const data = await response.json();
-
       const { data } = await getLocationDetail.refetch();
 
-      console.log(data);
-
-      setTooltipData(
-        data
-          ? { ...data, provideLiveStats: true }
-          : {
-              id: "ZES#6fd23f7f-1d55-46e5-8358-3f8dde4c3fd2",
-              title: "Banaz Petrol",
-              plugs: [
-                {
-                  type: "AC",
-                  count: 2,
-                  power: "22 kW"
-                }
-              ],
-              location: {
-                lat: 38.68059567378761,
-                lon: 29.653987884521484
-              },
-              address: "Cumhuriyet mah. Derbent No: 3 Kızılcasöğüt, Banaz, Uşak",
-              pointOfInterests: [],
-              plugsTotal: 2,
-              provider: "ZES",
-              provideLiveStats: true
-            }
-      );
+      setTooltipData(data ? { ...data, provideLiveStats: true } : null);
     } catch (error) {
       console.error("Error fetching data: ", error);
     }
@@ -76,7 +48,7 @@ const MarkerComponent: React.FC<MarkerProps> = ({ position, icon, chargingStatio
           return msIcon.src;
         case ProvidersEnum.ZES:
           return mzIcon.src;
-        case ProvidersEnum.AKSA:
+        case ProvidersEnum.AKSAENERGY:
           return maIcon.src;
         default:
           return markerIconPng.src;
@@ -107,7 +79,7 @@ const MarkerComponent: React.FC<MarkerProps> = ({ position, icon, chargingStatio
       position={position}
       icon={markerIcon}
       eventHandlers={{
-        click: () => handleMarkerClick(position)
+        click: handleMarkerClick
       }}>
       {tooltipData ? (
         <Popup className="custom-popup">

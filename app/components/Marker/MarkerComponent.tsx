@@ -97,7 +97,7 @@ const MarkerComponent: React.FC<MarkerProps> = ({ position, icon, chargingStatio
       case ProvidersEnum.BEEFULL:
         return "https://beefull.com/Elektrikli-Arac-Sarj-Istasyonlari";
       default:
-        return "#";
+        return "https://sarj.dev/";
     }
   };
 

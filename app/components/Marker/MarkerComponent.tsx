@@ -8,16 +8,14 @@ import meIcon from "@/app/assets/images/me.svg";
 import msIcon from "@/app/assets/images/ms.svg";
 import mzIcon from "@/app/assets/images/mz.svg";
 import maIcon from "@/app/assets/images/ma.svg";
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { PlugType, Providers, ProvidersEnum, TooltipData } from "@/app/types";
-import { Icon } from "@iconify-icon/react";
-
-import "./style.scss";
 import { useGetCertaionLocation } from "./actions";
-import classNames from "classnames";
 import CustomPopup from "./CustomPopup/CustomPopup";
 import LoadingPopup from "./LoadingPopup/LoadingPopup";
 import ErrorPopup from "./ErrorPopup/ErrorPopup";
+
+import "./style.scss";
 
 interface MarkerProps {
   position: LatLngExpression;
@@ -27,12 +25,22 @@ interface MarkerProps {
 
 const MarkerComponent: React.FC<MarkerProps> = ({ position, icon, chargingStationId }) => {
   const [tooltipData, setTooltipData] = useState<TooltipData | null>(null);
+  const [hasError, setHasError] = useState<boolean>(false);
 
   const getLocationDetail = useGetCertaionLocation({
     chargingStationId: chargingStationId.replace("#", "%23")
   });
 
+  useLayoutEffect(() => {
+    if (getLocationDetail.isError) {
+      setTooltipData(null);
+      setHasError(true);
+    }
+  }, [getLocationDetail.isError]);
+
   const handleMarkerClick = async () => {
+    setTooltipData(null);
+    setHasError(false);
     try {
       const { data } = await getLocationDetail.refetch();
       setTooltipData(data ? { ...data, provideLiveStats: true } : null);
@@ -109,7 +117,7 @@ const MarkerComponent: React.FC<MarkerProps> = ({ position, icon, chargingStatio
             handleClickProvider={handleClickProvider}
           />
         </Popup>
-      ) : getLocationDetail.isError ? (
+      ) : hasError ? (
         <Popup className="popup">
           <ErrorPopup />
         </Popup>

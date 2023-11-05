@@ -1,10 +1,9 @@
 import React from "react";
 import { CustomPopupType } from "@/app/types";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Icon } from "@iconify-icon/react/dist/iconify.js";
 import classNames from "classnames";
 import "./style.scss";
-import Link from "next/link";
 
 const CustomPopup = ({
   tooltipData,
@@ -12,8 +11,6 @@ const CustomPopup = ({
   getPlugData,
   handleClickProvider
 }: CustomPopupType) => {
-  const router = useRouter();
-
   return (
     <div className="custom-popup-container">
       <div className="custom-popup-header">

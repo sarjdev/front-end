@@ -1,5 +1,5 @@
-import React, { memo } from "react";
-import { Popup } from "react-leaflet";
+import React from "react";
+
 import "./style.scss";
 
 const LoadingPopup = () => {

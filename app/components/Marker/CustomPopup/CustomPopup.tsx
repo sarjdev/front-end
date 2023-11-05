@@ -3,6 +3,7 @@ import { CustomPopupType } from "@/app/types";
 import Link from "next/link";
 import { Icon } from "@iconify-icon/react/dist/iconify.js";
 import classNames from "classnames";
+
 import "./style.scss";
 
 const CustomPopup = ({

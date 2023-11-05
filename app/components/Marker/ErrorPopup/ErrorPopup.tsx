@@ -1,6 +1,7 @@
 import React from "react";
-import "./style.scss";
 import { Icon } from "@iconify-icon/react/dist/iconify.js";
+
+import "./style.scss";
 
 const ErrorPopup = () => {
   return (

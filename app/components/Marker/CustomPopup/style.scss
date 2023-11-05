@@ -1,0 +1,181 @@
+@import "../../../../app/assets/styles/variables";
+
+.custom {
+  &-popup {
+    bottom: 10px !important;
+
+    &-container {
+      min-width: 300px;
+      padding: 1rem 0;
+    }
+
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid $color-gray;
+
+      &-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+      }
+
+      &-provider {
+        font-size: 1.3rem;
+        text-decoration: none;
+        font-weight: 700;
+      }
+    }
+
+    &-suitability {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-top: 0.8rem;
+
+      &-okay {
+        color: $color-green !important;
+      }
+
+      &-notokay {
+        color: $color-red-2 !important;
+      }
+
+      p {
+        margin: 0;
+      }
+    }
+
+    &-location {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      margin-bottom: 0.5rem;
+
+      &-icon {
+        font-size: 2rem;
+        fill: $color-gray-2;
+        color: $color-gray-2;
+      }
+
+      &-text {
+        font-size: 1rem;
+        font-weight: 400;
+      }
+    }
+
+    &-socket {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      width: 100%;
+
+      &-container {
+        display: flex;
+        align-items: center;
+        font-size: 1.2rem;
+        padding: 0.5rem 0;
+        padding-left: 0.5rem;
+        gap: 5px;
+        margin-bottom: 1rem;
+        background-color: $color-gray-4;
+        width: calc(100% - 0.5rem);
+
+        p {
+          margin: 0;
+        }
+
+        &-icon {
+          background-color: $color-gray-2;
+          color: $color-gray;
+          padding: 5px;
+          border-radius: 15px;
+
+          &-okay {
+            background-color: $color-green-2 !important;
+          }
+        }
+
+        &-clock {
+          font-size: 2.7rem;
+        }
+      }
+    }
+
+    &-button {
+      &-container {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 0.8rem;
+        margin-bottom: 1rem;
+
+        a,
+        a:active,
+        a::after,
+        a:hover {
+          text-decoration: none;
+          color: unset;
+        }
+
+        &-item {
+          text-align: center;
+          padding: 1rem 0;
+          border: none;
+          font-size: 1.2rem;
+          cursor: pointer;
+        }
+
+        &-direction {
+          width: calc(100% - 0.2rem);
+          background-color: $color-black;
+          color: $color-white !important;
+          border: 2px solid $color-gray-3;
+
+          &:hover {
+            background-color: $color-gray-3;
+          }
+        }
+
+        &-payment {
+          width: calc(100% - 0.2rem);
+          background-color: $color-white;
+          color: $color-black !important;
+          border: 2px solid $color-gray-3;
+
+          &:hover {
+            background-color: $color-gray-3;
+            color: $color-white !important;
+          }
+        }
+      }
+    }
+  }
+
+  &-icon {
+    margin-left: -22px !important;
+  }
+}
+
+.ZES {
+  color: $color-red !important;
+}
+
+.ESARJ {
+  color: $color-blue !important;
+}
+
+.AKSAENERGY {
+  color: $color-green !important;
+}
+
+.SHARZ {
+  color: $color-yellow !important;
+}
+
+.BEEFULL {
+  color: $color-yellow !important;
+}

@@ -15,6 +15,9 @@ import { Icon } from "@iconify-icon/react";
 import "./style.scss";
 import { useGetCertaionLocation } from "./actions";
 import classNames from "classnames";
+import CustomPopup from "./CustomPopup/CustomPopup";
+import LoadingPopup from "./LoadingPopup/LoadingPopup";
+import ErrorPopup from "./ErrorPopup/ErrorPopup";
 
 interface MarkerProps {
   position: LatLngExpression;
@@ -32,7 +35,6 @@ const MarkerComponent: React.FC<MarkerProps> = ({ position, icon, chargingStatio
   const handleMarkerClick = async () => {
     try {
       const { data } = await getLocationDetail.refetch();
-
       setTooltipData(data ? { ...data, provideLiveStats: true } : null);
     } catch (error) {
       console.error("Error fetching data: ", error);
@@ -74,6 +76,23 @@ const MarkerComponent: React.FC<MarkerProps> = ({ position, icon, chargingStatio
     return tooltipData?.plugs?.filter((plug) => plug.type === type)?.[0]?.[data] ?? "";
   };
 
+  const handleClickProvider = (company: Providers): string => {
+    switch (company) {
+      case ProvidersEnum.ESARJ:
+        return "https://esarj.com/";
+      case ProvidersEnum.SHARZ:
+        return "https://www.sharz.net/";
+      case ProvidersEnum.ZES:
+        return "https://zes.net/?utm_source=digital_media&utm_medium=footer_logo&utm_campaign=ZES_borusan&utm_id=borusan";
+      case ProvidersEnum.AKSAENERGY:
+        return "https://www.aksasarj.com.tr/";
+      case ProvidersEnum.BEEFULL:
+        return "https://beefull.com/Elektrikli-Arac-Sarj-Istasyonlari";
+      default:
+        return "#";
+    }
+  };
+
   return (
     <Marker
       position={position}
@@ -82,72 +101,21 @@ const MarkerComponent: React.FC<MarkerProps> = ({ position, icon, chargingStatio
         click: handleMarkerClick
       }}>
       {tooltipData ? (
-        <Popup className="custom-popup">
-          <div className="custom-popup-container">
-            <div className="custom-popup-header">
-              <h5 className="custom-popup-header-title">{tooltipData?.title}</h5>
-              <a
-                href="#"
-                className={classNames("custom-popup-header-provider", {
-                  [`${tooltipData?.provider}`]: true
-                })}>
-                {tooltipData?.provider}
-              </a>
-            </div>
-            <div
-              className={classNames("custom-popup-suitability", {
-                "custom-popup-suitability-okay": tooltipData?.provideLiveStats,
-                "custom-popup-suitability-notokay": !tooltipData?.provideLiveStats
-              })}>
-              <p>{tooltipData?.provideLiveStats ? "Kullanıma uygun" : "Kullanıma uygun değil"}</p>
-            </div>
-            <div className="custom-popup-location">
-              <Icon className="custom-popup-location-icon" icon="fluent:location-12-filled" />
-              <p className="custom-popup-location-text">{tooltipData?.address}</p>
-            </div>
-            <div className="custom-popup-socket">
-              <div className="custom-popup-socket-container">
-                <p
-                  className={classNames("custom-popup-socket-container-icon", {
-                    "custom-popup-socket-container-icon-okay": checkPlugsType("AC")
-                  })}>
-                  AC
-                </p>
-                {checkPlugsType("AC") ? (
-                  <>
-                    <p>{getPlugData("AC", "count")} adet /</p>
-                    <p>{getPlugData("AC", "power")}</p>{" "}
-                  </>
-                ) : (
-                  <p>Mevcut değil</p>
-                )}
-              </div>
-              <div className="custom-popup-socket-container">
-                <p
-                  className={classNames("custom-popup-socket-container-icon", {
-                    "custom-popup-socket-container-icon-okay": checkPlugsType("DC")
-                  })}>
-                  DC
-                </p>
-                {checkPlugsType("DC") ? (
-                  <>
-                    <p>{getPlugData("DC", "count")} adet /</p>
-                    <p>{getPlugData("DC", "power")}</p>{" "}
-                  </>
-                ) : (
-                  <p>Mevcut değil</p>
-                )}
-              </div>
-            </div>
-            <button className="custom-popup-button custom-popup-direction">Yol Tarifi Al</button>
-            <button className="custom-popup-button custom-popup-payment">
-              Online Ödeme Bilgisi
-            </button>
-          </div>
+        <Popup className="popup">
+          <CustomPopup
+            checkPlugsType={checkPlugsType}
+            tooltipData={tooltipData}
+            getPlugData={getPlugData}
+            handleClickProvider={handleClickProvider}
+          />
+        </Popup>
+      ) : getLocationDetail.isError ? (
+        <Popup className="popup">
+          <ErrorPopup />
         </Popup>
       ) : (
-        <Popup className="custom-popup">
-          <div>Loading...</div>
+        <Popup className="popup">
+          <LoadingPopup />
         </Popup>
       )}
     </Marker>

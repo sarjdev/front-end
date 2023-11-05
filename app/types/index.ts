@@ -41,7 +41,7 @@ export type PlugType = "AC" | "DC";
 
 export type status = "active" | "inactive" | "inuse";
 
-export type Providers = "ESARJ" | "ZES" | "SHARZ" | "AKSAENERGY";
+export type Providers = "ESARJ" | "ZES" | "SHARZ" | "AKSAENERGY" | "BEEFULL";
 
 export type EVENT_TYPES = "movestart" | "moveend" | "zoomstart" | "zoomend" | "ready";
 
@@ -53,9 +53,17 @@ export type ClusterPopupData = {
 
 export type DeviceType = "mobile" | "desktop";
 
+export type CustomPopupType = {
+  tooltipData: TooltipData | null;
+  getPlugData: (type: PlugType, data: "count" | "power") => string | number;
+  checkPlugsType: (type: PlugType) => boolean;
+  handleClickProvider: (company: Providers) => string;
+};
+
 export enum ProvidersEnum {
   ESARJ = "ESARJ",
   ZES = "ZES",
   SHARZ = "SHARZ",
-  AKSAENERGY = "AKSAENERGY"
+  AKSAENERGY = "AKSAENERGY",
+  BEEFULL = "BEEFULL"
 }

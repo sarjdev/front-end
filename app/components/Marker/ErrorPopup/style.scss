@@ -17,4 +17,15 @@
   p {
     text-align: center;
   }
+
+  &-link {
+    text-decoration: none;
+    color: $color-gray-3 !important;
+
+    &:hover,
+    :focus,
+    :active {
+      color: $color-black !important;
+    }
+  }
 }

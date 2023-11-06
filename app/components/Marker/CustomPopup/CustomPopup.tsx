@@ -1,10 +1,17 @@
 import React from "react";
-import { CustomPopupType } from "@/app/types";
 import Link from "next/link";
 import { Icon } from "@iconify-icon/react/dist/iconify.js";
 import classNames from "classnames";
+import { PlugType, Providers, TooltipData } from "@/app/types";
 
 import "./style.scss";
+
+export interface CustomPopupType {
+  tooltipData: TooltipData | null;
+  getPlugData: (type: PlugType, data: "count" | "power") => string | number;
+  checkPlugsType: (type: PlugType) => boolean;
+  handleClickProvider: (company: Providers) => string;
+}
 
 const CustomPopup = ({
   tooltipData,

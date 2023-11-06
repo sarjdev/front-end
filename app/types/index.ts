@@ -53,13 +53,6 @@ export type ClusterPopupData = {
 
 export type DeviceType = "mobile" | "desktop";
 
-export type CustomPopupType = {
-  tooltipData: TooltipData | null;
-  getPlugData: (type: PlugType, data: "count" | "power") => string | number;
-  checkPlugsType: (type: PlugType) => boolean;
-  handleClickProvider: (company: Providers) => string;
-};
-
 export enum ProvidersEnum {
   ESARJ = "ESARJ",
   ZES = "ZES",

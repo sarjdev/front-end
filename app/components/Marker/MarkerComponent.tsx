@@ -1,13 +1,14 @@
 "use client";
 
 import { Marker, Popup } from "react-leaflet";
-import Leaflet from "leaflet";
+import Leaflet, { LatLngTuple } from "leaflet";
 import { LatLngExpression } from "leaflet";
 import markerIconPng from "@/app/assets/images/marker.png";
 import meIcon from "@/app/assets/images/me.svg";
 import msIcon from "@/app/assets/images/ms.svg";
 import mzIcon from "@/app/assets/images/mz.svg";
 import maIcon from "@/app/assets/images/ma.svg";
+import mbIcon from "@/app/assets/images/mb.svg";
 import { useLayoutEffect, useState } from "react";
 import { PlugType, Providers, ProvidersEnum, TooltipData } from "@/app/types";
 import { useGetCertaionLocation } from "./actions";
@@ -60,6 +61,8 @@ const MarkerComponent: React.FC<MarkerProps> = ({ position, icon, chargingStatio
           return mzIcon.src;
         case ProvidersEnum.AKSAENERGY:
           return maIcon.src;
+        case ProvidersEnum.BEEFULL:
+          return mbIcon.src;
         default:
           return markerIconPng.src;
       }
@@ -119,7 +122,7 @@ const MarkerComponent: React.FC<MarkerProps> = ({ position, icon, chargingStatio
         </Popup>
       ) : hasError ? (
         <Popup className="popup">
-          <ErrorPopup />
+          <ErrorPopup locationLink={`https://www.google.com/maps?q=${position}`} />
         </Popup>
       ) : (
         <Popup className="popup">

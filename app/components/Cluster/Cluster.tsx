@@ -5,7 +5,7 @@ import { LocationResponse } from "@/app/types";
 import MarkerComponent from "../Marker/MarkerComponent";
 import { findClusterData } from "./ClusterData";
 
-import "./style.scss";
+import "./styles.scss";
 
 const getIcon = (count: number) => {
   const data = findClusterData(count);

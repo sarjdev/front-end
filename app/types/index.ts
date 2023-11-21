@@ -60,3 +60,19 @@ export enum ProvidersEnum {
   AKSAENERGY = "AKSAENERGY",
   BEEFULL = "BEEFULL"
 }
+
+export type SuggestionChargingStation = {
+  id: string;
+  location: Location;
+  title: string;
+};
+
+export type SuggestionLocation = {
+  highlightedText: string;
+  chargingStation: TooltipData;
+};
+
+export type SuggestionSearchResponse = {
+  total: number;
+  suggestions: SuggestionLocation[];
+};

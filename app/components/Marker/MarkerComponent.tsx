@@ -16,7 +16,7 @@ import CustomPopup from "./CustomPopup/CustomPopup";
 import LoadingPopup from "./LoadingPopup/LoadingPopup";
 import ErrorPopup from "./ErrorPopup/ErrorPopup";
 
-import "./style.scss";
+import "./styles.scss";
 
 interface MarkerProps {
   position: LatLngExpression;

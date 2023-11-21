@@ -1,0 +1,15 @@
+@import "../../../app/assets/styles/variables";
+
+.searchbar {
+  position: relative;
+  top: 2rem;
+  left: 2rem;
+  z-index: 999;
+
+  div {
+    div {
+      background-color: $color-white;
+      border-color: $color-black;
+    }
+  }
+}

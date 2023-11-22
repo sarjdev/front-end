@@ -7,11 +7,13 @@ import ReactHtmlParser from "react-html-parser";
 import { SuggestionLocation } from "@/app/types";
 
 import "./styles.scss";
+import { useResponsive } from "@/app/hooks/useResponsive";
 
 const SearchBar = () => {
   const map = useMap();
   const [inputValue, setInputValue] = React.useState("");
   const [options, setOptions] = React.useState<SuggestionLocation[]>([]);
+  const mdUp = useResponsive("up", "md");
 
   const debouncedValue = useDebounce(inputValue);
 
@@ -30,7 +32,9 @@ const SearchBar = () => {
       }
     };
 
-    fetchData();
+    if (inputValue) {
+      fetchData();
+    }
   }, [debouncedValue]);
 
   const filterOptionLabel = (text: string): string => {
@@ -42,7 +46,13 @@ const SearchBar = () => {
   return (
     <Autocomplete
       className="searchbar"
-      sx={{ width: 300 }}
+      sx={{
+        width: mdUp ? 400 : "calc(100% - 4rem)",
+        position: "relative",
+        top: mdUp ? "10rem" : "8rem",
+        left: "2rem",
+        zIndex: 400
+      }}
       getOptionLabel={(option) => filterOptionLabel(option.highlightedText)}
       filterOptions={(x) => x}
       options={options}
@@ -62,6 +72,7 @@ const SearchBar = () => {
           <li
             {...props}
             key={option.highlightedText}
+            className="searchbar-list-item"
             onClick={() => {
               map.setView(
                 [option.chargingStation.location.lat, option.chargingStation.location.lon],

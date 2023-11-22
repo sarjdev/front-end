@@ -1,15 +1,42 @@
 @import "../../../app/assets/styles/variables";
 
 .searchbar {
-  position: relative;
-  top: 2rem;
-  left: 2rem;
-  z-index: 999;
-
   div {
+    label {
+      color: $color-black !important;
+      font-size: 1.1rem;
+    }
+
     div {
       background-color: $color-white;
-      border-color: $color-black;
+
+      .MuiAutocomplete-endAdornment {
+        border: unset;
+      }
+
+      fieldset {
+        border: 2px solid $color-black !important;
+        color: $color-black !important;
+
+        legend {
+          color: $color-black !important;
+          span {
+            color: $color-black !important;
+          }
+        }
+      }
+
+      input {
+        color: $color-black;
+        font-weight: bold;
+      }
+
+      svg {
+        width: 2rem;
+        height: 2rem;
+        fill: $color-black;
+        color: $color-black;
+      }
     }
   }
 }

@@ -2,6 +2,7 @@
 import "leaflet/dist/leaflet.css";
 import dynamic from "next/dynamic";
 import { QueryClient, QueryClientProvider } from "react-query";
+import Header from "./components/Header/Header";
 
 const MapContent = dynamic(() => import("./components/Map/Content"), {
   ssr: false
@@ -12,6 +13,7 @@ export default function Home() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <Header />
       <MapContent />
     </QueryClientProvider>
   );

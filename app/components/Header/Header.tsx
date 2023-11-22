@@ -1,5 +1,5 @@
 import React from "react";
-import { AppBar, Box, Button, IconButton, Link, Stack, Toolbar } from "@mui/material";
+import { AppBar, Button, Link, Stack, Toolbar } from "@mui/material";
 import { useResponsive } from "@/app/hooks/useResponsive";
 import Logo from "@/app/assets/images/sarjdev-logo.png";
 
@@ -23,15 +23,8 @@ const Header = () => {
           px: { lg: 5 }
         }}>
         <Link component={Link} href="/" sx={{ display: "contents" }}>
-          {/* <Box component="img" src={Logo} sx={{ cursor: "pointer" }} /> */}
           <Image src={Logo} alt="logo image" width={mdUp ? 100 : 60} />
         </Link>
-
-        {/* {!mdUp ? (
-          <IconButton onClick={onOpenNav}>
-            <SvgColor src="/assets/icons/navbar/ic_menu_item.svg" />
-          </IconButton>
-        ) : null} */}
 
         <Stack
           flexGrow={1}

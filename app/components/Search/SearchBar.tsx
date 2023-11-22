@@ -5,9 +5,9 @@ import { Autocomplete, TextField } from "@mui/material";
 import { useDebounce } from "@/app/hooks/useDebounce";
 import ReactHtmlParser from "react-html-parser";
 import { SuggestionLocation } from "@/app/types";
+import { useResponsive } from "@/app/hooks/useResponsive";
 
 import "./styles.scss";
-import { useResponsive } from "@/app/hooks/useResponsive";
 
 const SearchBar = () => {
   const map = useMap();

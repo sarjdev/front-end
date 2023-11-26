@@ -36,8 +36,9 @@ const MapContent = () => {
     northEast: latLng(42.211024, 44.823563)
   };
   const bounds = latLngBounds(mapBoundaries.southWest, mapBoundaries.northEast);
-  const baseMapUrl = "https://www.google.cn/maps/vt?lyrs=m@189&gl=cn&x={x}&y={y}&z={z}";
-  const attribution = "Google Maps";
+  const baseMapUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
+  const attribution =
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
   useEffect(() => {
     if (locationData.isSuccess) {

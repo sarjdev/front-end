@@ -27,7 +27,7 @@ function useUserLocation() {
           setLoading(false);
         },
         {
-          timeout: 1000
+          timeout: 5000
         }
       );
     } catch (error) {

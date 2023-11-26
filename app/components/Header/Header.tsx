@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import { AppBar, Button, Link, Stack, Toolbar } from "@mui/material";
 import { useResponsive } from "@/app/hooks/useResponsive";
 import Logo from "@/app/assets/images/sarjdev-logo.png";
+import Image from "next/image";
+import HeaderDialog from "./HeaderDialog/HeaderDialog";
 
 import "./styles.scss";
-import Image from "next/image";
-import HeaderDialog from "./HeaderDialog";
 
 const Header = () => {
   const mdUp = useResponsive("up", "md");

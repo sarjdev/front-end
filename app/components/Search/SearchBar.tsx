@@ -1,11 +1,11 @@
+import { useDebounce } from "@/app/hooks/useDebounce";
+import { useResponsive } from "@/app/hooks/useResponsive";
+import { SuggestionLocation } from "@/app/types";
+import { Autocomplete, TextField } from "@mui/material";
 import React, { useEffect } from "react";
+import ReactHtmlParser from "react-html-parser";
 import { useMap } from "react-leaflet";
 import { useSearch } from "./actions";
-import { Autocomplete, TextField } from "@mui/material";
-import { useDebounce } from "@/app/hooks/useDebounce";
-import ReactHtmlParser from "react-html-parser";
-import { SuggestionLocation } from "@/app/types";
-import { useResponsive } from "@/app/hooks/useResponsive";
 
 import "./styles.scss";
 
@@ -37,11 +37,11 @@ const SearchBar = () => {
     }
   }, [debouncedValue]);
 
-  const filterOptionLabel = (text: string): string => {
-    const sanitizedText = text.replace(/<b>/g, "").replace(/<\/b>/g, "");
+  // const filterOptionLabel = (text: string): string => {
+  //   const sanitizedText = text.replace(/<b>/g, "").replace(/<\/b>/g, "");
 
-    return sanitizedText;
-  };
+  //   return sanitizedText;
+  // };
 
   return (
     <Autocomplete
@@ -53,7 +53,7 @@ const SearchBar = () => {
         left: "2rem",
         zIndex: 400
       }}
-      getOptionLabel={(option) => filterOptionLabel(option.highlightedText)}
+      // getOptionLabel={(option) => option.highlightedText}
       filterOptions={(x) => x}
       options={options}
       autoComplete
@@ -68,6 +68,8 @@ const SearchBar = () => {
       }}
       renderInput={(params) => <TextField {...params} label="Lokasyon ara..." fullWidth />}
       renderOption={(props, option) => {
+        const containsBold = /<b>(.*?)<\/b>/g.test(option.highlightedText);
+
         return (
           <li
             {...props}

@@ -15,7 +15,7 @@
       }
 
       fieldset {
-        border: 2px solid $color-black !important;
+        border: 1px solid $color-black !important;
         color: $color-black !important;
 
         legend {
@@ -46,7 +46,7 @@
       cursor: pointer;
       border-bottom: 1px solid $color-gray-4;
       min-height: 3rem;
-      transition: ease-in-out 0.3s;
+      transition: 0.3s ease-in-out;
 
       &:hover {
         background-color: $color-gray-4;

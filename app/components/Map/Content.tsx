@@ -8,12 +8,13 @@ import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { TileLayer } from "react-leaflet";
 import { Cluster } from "../Cluster/Cluster";
+import FilterButtonGroup from "../Filter/Buttons/FilterButtonGroup";
 import Loading from "../Loading/Loading";
 import SearchBar from "../Search/SearchBar";
 import { useGetLocations } from "./actions";
 
-import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
+import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet/dist/leaflet.css";
 
 const Map = dynamic(() => import("./Map"), {
@@ -53,30 +54,29 @@ const MapContent = () => {
   const locationCenter = userLocation || [39.929311, 34.405679];
 
   return (
-    <>
-      <Map
-        zoomControl={false}
-        attributionControl={false}
-        center={locationCenter}
-        zoom={zoom}
-        minZoom={7}
-        zoomSnap={1}
-        zoomDelta={1}
-        whenReady={(map: any) => {
-          setTimeout(() => {
-            map.target.invalidateSize();
-          }, 100);
-        }}
-        preferCanvas
-        maxBoundsViscosity={1}
-        maxBounds={bounds}
-        maxZoom={18}>
-        <MapEvents />
-        <TileLayer url={baseMapUrl} className="w-100 h-100" />
-        <Cluster data={data} />
-        <SearchBar />
-      </Map>
-    </>
+    <Map
+      zoomControl={false}
+      attributionControl={false}
+      center={locationCenter}
+      zoom={zoom}
+      minZoom={7}
+      zoomSnap={1}
+      zoomDelta={1}
+      whenReady={(map: any) => {
+        setTimeout(() => {
+          map.target.invalidateSize();
+        }, 100);
+      }}
+      preferCanvas
+      maxBoundsViscosity={1}
+      maxBounds={bounds}
+      maxZoom={18}>
+      <MapEvents />
+      <TileLayer url={baseMapUrl} className="w-100 h-100" />
+      <Cluster data={data} />
+      <SearchBar />
+      <FilterButtonGroup />
+    </Map>
   );
 };
 

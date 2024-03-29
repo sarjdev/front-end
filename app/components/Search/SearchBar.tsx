@@ -37,23 +37,16 @@ const SearchBar = () => {
     }
   }, [debouncedValue]);
 
-  // const filterOptionLabel = (text: string): string => {
-  //   const sanitizedText = text.replace(/<b>/g, "").replace(/<\/b>/g, "");
-
-  //   return sanitizedText;
-  // };
-
   return (
     <Autocomplete
       className="searchbar"
       sx={{
         width: mdUp ? 400 : "calc(100% - 4rem)",
-        position: "relative",
-        top: mdUp ? "10rem" : "8rem",
+        position: "absolute",
+        top: mdUp ? "10rem" : "13rem",
         left: "2rem",
         zIndex: 400
       }}
-      // getOptionLabel={(option) => option.highlightedText}
       filterOptions={(x) => x}
       options={options}
       autoComplete
@@ -84,7 +77,7 @@ const SearchBar = () => {
                 }
               );
             }}>
-            <div>{ReactHtmlParser(option.highlightedText)}</div>
+            {ReactHtmlParser(option.highlightedText)}
           </li>
         );
       }}

@@ -1,0 +1,56 @@
+@import "../../../../app/assets/styles/variables";
+
+.filter {
+  width: 400;
+  position: absolute;
+  top: 10rem;
+  right: 2rem;
+  z-index: 400;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+
+  &-responsive {
+    width: calc(100% - 4rem);
+    top: 8rem;
+    justify-content: "center";
+  }
+
+  &-button {
+    width: 100%;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: unset;
+    min-height: 4rem;
+    border-radius: 4px;
+    padding: 0.5rem 2rem;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+
+    &-web {
+      flex: 1 0 200px;
+    }
+
+    &-outlined {
+      background-color: $color-white;
+      border: 1px solid $color-black;
+
+      &:hover {
+        background-color: $color-gray-3;
+        color: $color-white !important;
+      }
+    }
+
+    &-contained {
+      background-color: $color-black;
+      color: $color-white;
+      border: 1px solid $color-black;
+
+      &:hover {
+        background-color: $color-gray-3;
+        color: $color-white !important;
+      }
+    }
+  }
+}

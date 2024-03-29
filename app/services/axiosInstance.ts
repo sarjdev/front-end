@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: 'https://sarj.dev/v1',
+  baseURL: 'https://api.sarj.dev/v1',
   withCredentials: true
 });
 

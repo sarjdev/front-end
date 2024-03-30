@@ -1,40 +1,55 @@
 @import "../../../app/assets/styles/variables";
 
-.bottomSheet {
+.bottom-sheet {
   position: fixed;
-  bottom: -50%;
+  bottom: -30%;
   left: 0;
   right: 0;
   width: 100%;
-  height: 50%;
+  height: 30%;
   transition: bottom 0.3s ease-in-out;
   z-index: 999;
-}
 
-.open {
-  bottom: 0;
-}
+  &-responsive {
+    position: fixed;
+    bottom: -80%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 80%;
+    transition: bottom 0.3s ease-in-out;
+    z-index: 999;
+  }
 
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-}
+  &-open {
+    bottom: 0;
+  }
 
-.content {
-  position: relative;
-  left: 0;
-  right: 0;
-  border: 1px solid $color-black;
-  border-bottom: none;
-  border-top-left-radius: 1rem;
-  border-top-right-radius: 1rem;
-  background-color: $color-white;
-  padding: 3rem;
-  max-width: calc(100% - 40px);
-  margin: 0 auto;
-  height: 100%;
+  &-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+
+  &-content {
+    position: relative;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 1px solid $color-black;
+    border-bottom: none;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+    background-color: $color-white;
+    padding: 3rem;
+    max-width: calc(100% - 3rem);
+    height: 80%;
+
+    &-responsive {
+      height: 92%;
+    }
+  }
 }

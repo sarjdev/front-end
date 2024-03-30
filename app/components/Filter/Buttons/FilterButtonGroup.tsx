@@ -1,25 +1,21 @@
 import { useResponsive } from "@/app/hooks/useResponsive";
 import classNames from "classnames";
-import { useState } from "react";
-import BottomSheet from "../../BottomSheet/BottomSheet";
 import FilterButton from "./FilterButton";
 
+import { generalStore } from "@/app/stores/generalStore";
 import "./styles.scss";
 
 const FilterButtonGroup = () => {
   const mdUp = useResponsive("up", "md");
-  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const { actions } = generalStore();
 
   return (
     <div className={classNames("filter", { "filter-responsive": !mdUp })}>
       <FilterButton
         classes="filter-button-contained"
         label="Filtrele"
-        onClick={() => setIsBottomSheetOpen(true)}
+        onClick={() => actions.setBottomSheetOpen(true)}
       />
-      <BottomSheet isOpen={isBottomSheetOpen} onClose={() => setIsBottomSheetOpen(false)}>
-        <div>hello</div>
-      </BottomSheet>
     </div>
   );
 };

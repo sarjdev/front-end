@@ -1,14 +1,15 @@
-"use client"
+"use client";
 import { MapOptions } from "leaflet";
 import dynamic from "next/dynamic";
 import { ReactNode } from "react";
 
 const DynamicMap = dynamic(() => import("./Dynamic"), {
-  ssr: false,
+  ssr: false
 });
 
 interface MapProps extends MapOptions {
   children: ReactNode;
+  className: string;
   // eslint-disable-next-line no-unused-vars
   whenReady: (map: any) => void;
 }
@@ -21,4 +22,4 @@ const Map = (props: MapProps) => {
   );
 };
 
-export default Map
+export default Map;

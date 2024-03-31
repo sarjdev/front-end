@@ -2,34 +2,49 @@ export interface LocationData {
   chargingStations: LocationResponse[];
 }
 
-export interface LocationResponse {
+export interface FilteredLocationData {
+  chargingStations: LocationResponse[];
+  total: number;
+  distance: number;
+  distanceUnit: string;
+}
+
+export interface FilteredLocationResponse {
+  data: FilteredLocationData;
+  config: any;
+  request: any;
+  headers: any;
+  status: number;
+}
+
+export interface FilterFormRequest {
+  latitude: number;
+  longitude: number;
+  distance: number;
+  size: number;
+}
+
+export interface ChargingStationData {
   id: string;
   location: Location;
   title?: string;
   address?: string;
   city?: string;
+  plugs: Plugs[];
   pointOfInterests?: string[];
   plugsTotal?: number;
   provider: Providers;
   provideLiveStats?: boolean;
 }
 
+export type LocationResponse = ChargingStationData;
+
 export interface Location {
   lat: number;
   lon: number;
 }
 
-export interface TooltipData {
-  id: string;
-  location: Location;
-  title: string;
-  plugs: Plugs[];
-  address: string;
-  pointOfInterests: [];
-  plugsTotal: number;
-  provider: Providers;
-  provideLiveStats: boolean;
-}
+export type TooltipData = ChargingStationData;
 
 export interface Plugs {
   type: PlugType;

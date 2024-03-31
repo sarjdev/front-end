@@ -3,12 +3,11 @@ import { useMapEvents } from "@/app/hooks/useMapEvents";
 import useUserLocation from "@/app/hooks/useUserLocation";
 import { generalStore } from "@/app/stores/generalStore";
 import { useMapGeographyStore } from "@/app/stores/mapGeographyStore";
-import { FilteredLocationData } from "@/app/types";
+import { FilteredLocationData, Location } from "@/app/types";
 import classNames from "classnames";
 import { latLng, latLngBounds } from "leaflet";
-import dynamic from "next/dynamic";
 import { useRef } from "react";
-import { TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
 import BottomSheet from "../BottomSheet/BottomSheet";
 import { Cluster } from "../Cluster/Cluster";
 import FilterButtonGroup from "../Filter/Buttons/FilterButtonGroup";
@@ -20,10 +19,7 @@ import { useGetLocations } from "./actions";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet/dist/leaflet.css";
-
-const Map = dynamic(() => import("./Map"), {
-  ssr: false
-});
+import "./styles.scss";
 
 const MapEvents = () => {
   useMapEvents();
@@ -34,8 +30,8 @@ const MapContent = () => {
   const { zoom } = useMapGeographyStore();
   const locationData = useGetLocations();
   const { location: userLocation, loading } = useUserLocation();
-  const { isBottomSheetOpen, selectedLocation, actions } = generalStore();
-  const mapRef = useRef<any>();
+  const { isBottomSheetOpen, actions } = generalStore();
+  const mapRef = useRef<any>(null);
 
   const mapBoundaries = {
     southWest: latLng(36.025514, 25.584519),
@@ -50,28 +46,23 @@ const MapContent = () => {
   const dpr = window.devicePixelRatio;
   const baseMapUrl = `https://mt0.google.com/vt/scale=${dpr}&hl=en&x={x}&y={y}&z={z}`;
 
-  const selectedLocationData: [number, number] | undefined = selectedLocation
-    ? [selectedLocation.lat, selectedLocation.lon]
-    : undefined;
-
   const locationCenter = userLocation || [39.929311, 34.405679];
 
-  console.log(selectedLocationData);
+  const handleClickToCenter = (location: Location) => {
+    if (mapRef.current) {
+      const selectedLocationData: [number, number] | undefined = location
+        ? [location.lat, location.lon]
+        : undefined;
 
-  // if (selectedLocationData && mapRef.current) {
-  //   console.log(mapRef.current);
-  //   mapRef.current?.leafletElement?.flyTo(selectedLocationData);
-  //   mapRef.current?.target?.flyTo(selectedLocationData);
-  // }
-
-  // useEffect(() => {
-  //   console.log("çalıştı");
-  // }, [selectedLocation]);
+      actions.setBottomSheetOpen(false);
+      mapRef.current.flyTo(selectedLocationData, 17);
+    }
+  };
 
   return (
     <>
-      <Map
-        className={classNames({ "map-not-clickable": isBottomSheetOpen })}
+      <MapContainer
+        className={classNames("map", { "map-not-clickable": isBottomSheetOpen })}
         zoomControl={false}
         attributionControl={false}
         center={locationCenter}
@@ -79,12 +70,7 @@ const MapContent = () => {
         minZoom={7}
         zoomSnap={1}
         zoomDelta={1}
-        whenReady={(map: any) => {
-          mapRef.current = map;
-          setTimeout(() => {
-            map.target.invalidateSize();
-          }, 100);
-        }}
+        ref={mapRef}
         preferCanvas
         maxBoundsViscosity={1}
         maxBounds={bounds}
@@ -94,14 +80,14 @@ const MapContent = () => {
         <Cluster data={locationData?.data?.chargingStations || null} />
         <SearchBar />
         <FilterButtonGroup />
-      </Map>
+      </MapContainer>
       <BottomSheet
         isOpen={isBottomSheetOpen}
         onClose={() => {
           actions.setBottomSheetOpen(false);
           actions.setFilteredLocationData({} as FilteredLocationData);
         }}>
-        <FilterForm />
+        <FilterForm handleClickToCenter={handleClickToCenter} />
       </BottomSheet>
     </>
   );

@@ -69,7 +69,7 @@ const SearchBar = () => {
             key={option.highlightedText}
             className="searchbar-list-item"
             onClick={() => {
-              map.setView(
+              map.flyTo(
                 [option.chargingStation.location.lat, option.chargingStation.location.lon],
                 17,
                 {

@@ -1,7 +1,4 @@
-import omit from "lodash.omit";
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
-import { getHashStorage } from "../utils/zustand";
 
 interface State {
   zoom: number;
@@ -10,18 +7,9 @@ interface State {
   };
 }
 
-export const useMapGeographyStore = create<State>()(
-  persist(
-    (set) => ({
-      zoom: 8,
-      actions: {
-        setZoom: (zoom) => set(() => ({ zoom }))
-      }
-    }),
-    {
-      name: "mg",
-      getStorage: () => getHashStorage(),
-      partialize: (state) => ({ ...omit(state, "actions") })
-    }
-  )
-);
+export const useMapGeographyStore = create<State>((set) => ({
+  zoom: 6,
+  actions: {
+    setZoom: (zoom) => set(() => ({ zoom }))
+  }
+}));

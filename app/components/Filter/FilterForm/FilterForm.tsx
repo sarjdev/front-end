@@ -1,18 +1,24 @@
 import { useResponsive } from "@/app/hooks/useResponsive";
 import { FilterFormSchema } from "@/app/schema/filterFormSchema";
 import { generalStore } from "@/app/stores/generalStore";
+import { Location } from "@/app/types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import classNames from "classnames";
+import { FC } from "react";
 import { useForm } from "react-hook-form";
 import FormProvider from "../../Form/FormProvider/FormProvider";
 import RangeInput from "../../Form/RangeInput/RangeInput";
 import FilterButton from "../Buttons/FilterButton";
+import FilteredCard from "../FilteredCard/FilteredCard";
 import { useGetFilteredData } from "./actions";
 
-import FilteredCard from "../FilteredCard/FilteredCard";
 import "./styles.scss";
 
-const FilterForm = () => {
+type FilteredCardType = {
+  handleClickToCenter: (location: Location) => void;
+};
+
+const FilterForm: FC<FilteredCardType> = ({ handleClickToCenter }) => {
   const mdUp = useResponsive("up", "md");
   const methods = useForm({
     resolver: yupResolver(FilterFormSchema),
@@ -71,7 +77,7 @@ const FilterForm = () => {
         </div>
         <FilterButton classes="filter-button-contained" label="Ara" />
       </FormProvider>
-      <FilteredCard />
+      <FilteredCard handleClickToCenter={handleClickToCenter} />
     </div>
   );
 };

@@ -1,14 +1,20 @@
 import { useResponsive } from "@/app/hooks/useResponsive";
 import { generalStore } from "@/app/stores/generalStore";
+import { Location } from "@/app/types";
 import { checkPlugsType, getPlugData, handleClickProvider } from "@/app/utils/general-utils";
 import { Icon } from "@iconify-icon/react/dist/iconify.js";
 import classNames from "classnames";
 import Link from "next/link";
+import { FC } from "react";
 import FilterButton from "../Buttons/FilterButton";
 
 import "./styles.scss";
 
-const FilteredCard = () => {
+type FilteredCardType = {
+  handleClickToCenter: (location: Location) => void;
+};
+
+const FilteredCard: FC<FilteredCardType> = ({ handleClickToCenter }) => {
   const { filteredLocationData, actions } = generalStore();
   const mdUp = useResponsive("up", "md");
 
@@ -44,7 +50,7 @@ const FilteredCard = () => {
               <FilterButton
                 classes="filter-button-contained card-item-button"
                 label="Haritada Gör"
-                onClick={() => actions.setSelectedLocation(item.location)}
+                onClick={() => handleClickToCenter(item.location)}
               />
               <div className="card-item-socket">
                 <div className="card-item-socket-container">

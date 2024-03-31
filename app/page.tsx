@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Header from "./components/Header/Header";
 
-const MapContent = dynamic(() => import("./components/Map/Content"), {
+const MapContent = dynamic(() => import("./components/Map/MapContent"), {
   ssr: false
 });
 

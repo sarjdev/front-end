@@ -21,7 +21,8 @@ type Props = {
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
-    padding: theme.spacing(2)
+    padding: theme.spacing(2),
+    flex: "1 0 100%"
   },
   "& .MuiDialogActions-root": {
     padding: theme.spacing(1)
@@ -32,7 +33,18 @@ const HeaderDialog: FC<Props> = ({ open, handleOpen, handleClose }) => {
   const mdUp = useResponsive("up", "md");
 
   return (
-    <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
+    <BootstrapDialog
+      onClose={handleClose}
+      sx={{
+        "& .MuiPaper-root": {
+          minWidth: mdUp ? "400px" : "100%"
+        },
+        "& .MuiDialogContent-root": {
+          width: mdUp ? "500px" : "unset"
+        }
+      }}
+      aria-labelledby="customized-dialog-title"
+      open={open}>
       <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
         İletişim Bilgileri
       </DialogTitle>

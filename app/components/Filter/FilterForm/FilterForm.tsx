@@ -1,9 +1,11 @@
 import { useResponsive } from "@/app/hooks/useResponsive";
+import useUserLocation from "@/app/hooks/useUserLocation";
 import { FilterFormSchema } from "@/app/schema/filterFormSchema";
 import { generalStore } from "@/app/stores/generalStore";
 import { Location } from "@/app/types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import classNames from "classnames";
+import { useSnackbar } from "notistack";
 import { FC } from "react";
 import { useForm } from "react-hook-form";
 import FormProvider from "../../Form/FormProvider/FormProvider";
@@ -28,6 +30,8 @@ const FilterForm: FC<FilteredCardType> = ({ handleClickToCenter }) => {
     }
   });
   const { actions } = generalStore();
+  const { enqueueSnackbar } = useSnackbar();
+  const { location } = useUserLocation();
 
   const { watch, handleSubmit } = methods;
 
@@ -36,25 +40,31 @@ const FilterForm: FC<FilteredCardType> = ({ handleClickToCenter }) => {
   const filterData = useGetFilteredData();
 
   const onSubmit = handleSubmit(async (data) => {
-    try {
-      filterData.mutate(
-        {
-          longitude: 29.848306,
-          latitude: 40.904722,
-          distance: data.distance,
-          size: data.size
-        },
-        {
-          onSuccess: (data) => {
-            actions.setFilteredLocationData(data.data);
+    if (location && location?.[0] && location?.[1]) {
+      try {
+        filterData.mutate(
+          {
+            longitude: location?.[0] ?? 0,
+            latitude: location?.[1] ?? 0,
+            distance: data.distance,
+            size: data.size
           },
-          onError: (error) => {
-            console.warn(error);
+          {
+            onSuccess: (data) => {
+              actions.setFilteredLocationData(data.data);
+            },
+            onError: (error) => {
+              enqueueSnackbar("Konumlar filtrelenirken bir hata oluştu", { variant: "error" });
+            }
           }
-        }
-      );
-    } catch (error) {
-      console.log(error);
+        );
+      } catch (error) {
+        enqueueSnackbar("Konumlar filtrelenirken bir hata oluştu", { variant: "error" });
+      }
+    } else {
+      enqueueSnackbar("Filtreleme yapabilmek için konum erişimine izin vermeniz gerekmektedir!", {
+        variant: "warning"
+      });
     }
   });
 

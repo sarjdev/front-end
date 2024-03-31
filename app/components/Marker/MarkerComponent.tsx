@@ -8,6 +8,7 @@ import msIcon from "@/app/assets/images/ms.svg";
 import mzIcon from "@/app/assets/images/mz.svg";
 import { Providers, ProvidersEnum, TooltipData } from "@/app/types";
 import Leaflet, { LatLngExpression } from "leaflet";
+import { useSnackbar } from "notistack";
 import { FC, useLayoutEffect, useState } from "react";
 import { Marker, Popup } from "react-leaflet";
 import CustomPopup from "./CustomPopup/CustomPopup";
@@ -26,6 +27,7 @@ interface MarkerProps {
 const MarkerComponent: FC<MarkerProps> = ({ position, icon, chargingStationId }) => {
   const [tooltipData, setTooltipData] = useState<TooltipData | null>(null);
   const [hasError, setHasError] = useState<boolean>(false);
+  const { enqueueSnackbar } = useSnackbar();
 
   const getLocationDetail = useGetCertaionLocation({
     chargingStationId: chargingStationId.replace("#", "%23")
@@ -45,7 +47,7 @@ const MarkerComponent: FC<MarkerProps> = ({ position, icon, chargingStationId })
       const { data } = await getLocationDetail.refetch();
       setTooltipData(data ? { ...data, provideLiveStats: true } : null);
     } catch (error) {
-      console.error("Error fetching data: ", error);
+      enqueueSnackbar("Şarj istasyonu verisi çekilirken bir hata oluştu!", { variant: "error" });
     }
   };
 

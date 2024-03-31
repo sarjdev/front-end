@@ -10,7 +10,7 @@ type RangeInputType = {
 };
 
 const RangeInput: FC<RangeInputType> = ({ min, max, name }) => {
-  const { control, watch } = useFormContext();
+  const { control } = useFormContext();
 
   return (
     <div className="range-input">

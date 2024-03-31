@@ -2,6 +2,7 @@ import { useResponsive } from "@/app/hooks/useResponsive";
 import useUserLocation from "@/app/hooks/useUserLocation";
 import { generalStore } from "@/app/stores/generalStore";
 import classNames from "classnames";
+import { useSnackbar } from "notistack";
 import { FC } from "react";
 import FilterButton from "./FilterButton";
 
@@ -11,13 +12,15 @@ const FilterButtonGroup: FC = () => {
   const mdUp = useResponsive("up", "md");
   const { actions } = generalStore();
   const { location } = useUserLocation();
+  const { enqueueSnackbar } = useSnackbar();
 
   const handleClickFilterButton = () => {
     if (location) {
       actions.setBottomSheetOpen(true);
     } else {
-      console.log("hata");
-      actions.setBottomSheetOpen(true);
+      enqueueSnackbar("Filtreleme yapabilmek için konum erişimine izin vermeniz gerekmektedir!", {
+        variant: "warning"
+      });
     }
   };
 

@@ -2,6 +2,7 @@ import { useDebounce } from "@/app/hooks/useDebounce";
 import { useResponsive } from "@/app/hooks/useResponsive";
 import { SuggestionLocation } from "@/app/types";
 import { Autocomplete, TextField } from "@mui/material";
+import { useSnackbar } from "notistack";
 import { FC, useEffect, useState } from "react";
 import ReactHtmlParser from "react-html-parser";
 import { useMap } from "react-leaflet";
@@ -14,6 +15,7 @@ const SearchBar: FC = () => {
   const [inputValue, setInputValue] = useState("");
   const [options, setOptions] = useState<SuggestionLocation[]>([]);
   const mdUp = useResponsive("up", "md");
+  const { enqueueSnackbar } = useSnackbar();
 
   const debouncedValue = useDebounce(inputValue);
 
@@ -28,7 +30,7 @@ const SearchBar: FC = () => {
         const searchData = response.data;
         setOptions(searchData?.suggestions ?? []);
       } catch (error) {
-        console.error("Error fetching search suggestions:", error);
+        enqueueSnackbar("Arama sonuçları çekilirken bir hata oluştu!", { variant: "error" });
       }
     };
 

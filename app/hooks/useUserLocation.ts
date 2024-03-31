@@ -1,15 +1,16 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useSnackbar } from "notistack";
+import { useEffect, useState } from "react";
 
 function useUserLocation() {
   const [location, setLocation] = useState<[number, number] | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     if (!navigator.geolocation) {
-      setError("Geolocation is not supported by this browser.");
-      console.error("Geolocation is not supported by this browser.");
+      enqueueSnackbar("Konum bilgisi bu tarayıcıda kullanılamıyor!", { variant: "error" });
       setLoading(false);
       return;
     }
@@ -23,8 +24,9 @@ function useUserLocation() {
         },
         (err) => {
           setError(err.message);
-          console.error(err.message);
           setLoading(false);
+          enqueueSnackbar("Konum bilgisi alınamadı!", { variant: "error" });
+          return;
         },
         {
           timeout: 5000
@@ -32,7 +34,7 @@ function useUserLocation() {
       );
     } catch (error) {
       setLoading(false);
-      console.error(error);
+      enqueueSnackbar("Konum bilgisi alınamadı!", { variant: "error" });
     }
   }, []);
 

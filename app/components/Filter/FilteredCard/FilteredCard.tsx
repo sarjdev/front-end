@@ -18,8 +18,6 @@ const FilteredCard: FC<FilteredCardType> = ({ handleClickToCenter }) => {
   const { filteredLocationData } = generalStore();
   const mdUp = useResponsive("up", "md");
 
-  console.log(filteredLocationData);
-
   return (
     <div className={classNames("card-container", { "card-container-responsive": !mdUp })}>
       {filteredLocationData?.total ? (

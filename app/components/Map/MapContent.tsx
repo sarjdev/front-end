@@ -59,8 +59,6 @@ const MapContent: FC = () => {
     }
   };
 
-  console.log(userLocation);
-
   return (
     <>
       <MapContainer

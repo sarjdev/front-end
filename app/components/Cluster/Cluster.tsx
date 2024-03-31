@@ -1,7 +1,7 @@
+import { LocationResponse } from "@/app/types";
 import L from "leaflet";
 import { Marker, useMap } from "react-leaflet";
 import useSupercluster from "use-supercluster";
-import { LocationResponse } from "@/app/types";
 import MarkerComponent from "../Marker/MarkerComponent";
 import { findClusterData } from "./ClusterData";
 

@@ -6,7 +6,7 @@ import "./styles.scss";
 
 type FilterButtonType = {
   classes?: string;
-  onClick: VoidFunction;
+  onClick?: VoidFunction;
   label: string;
 };
 
@@ -14,11 +14,12 @@ const FilterButton: FC<FilterButtonType> = ({ classes, onClick, label }) => {
   const mdUp = useResponsive("up", "md");
   return (
     <button
+      type="submit"
       className={classNames("filter-button", {
         "filter-button-web": mdUp,
         [`${classes}`]: classes
       })}
-      onClick={onClick}>
+      onClick={() => onClick?.()}>
       {label}
     </button>
   );

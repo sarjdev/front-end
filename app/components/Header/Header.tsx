@@ -42,16 +42,40 @@ const Header: FC = () => {
             direction="row"
             alignItems="center"
             justifyContent="flex-end"
-            color="#fff"
-            spacing={{ xs: 0.5, sm: 1 }}>
+            gap="1rem"
+            color="#fff">
             <Link
-              sx={{ color: "#fff", fontSize: "14px", fontWeight: "bold", textDecoration: "none" }}
+              sx={{
+                color: "#fff",
+                fontSize: "14px",
+                fontWeight: "bold",
+                textDecoration: "none",
+                padding: mdUp ? "0.5rem 0.8rem" : "0.2rem 0.4rem"
+              }}
+              href="https://github.com/sponsors/sarjdev"
+              target="_blank">
+              Sponsor
+            </Link>
+            <Link
+              sx={{
+                color: "#fff",
+                fontSize: "14px",
+                fontWeight: "bold",
+                textDecoration: "none",
+                padding: mdUp ? "0.5rem 0.8rem" : "0.2rem 0.4rem"
+              }}
               href="https://github.com/sarjdev"
               target="_blank">
               GitHub
             </Link>
             <Button
-              sx={{ color: "#fff", textTransform: "unset", fontSize: "14px", fontWeight: "bold" }}
+              sx={{
+                color: "#fff",
+                textTransform: "unset",
+                fontSize: "14px",
+                fontWeight: "bold",
+                padding: mdUp ? "0.5rem 0.8rem" : "0.2rem 0.4rem"
+              }}
               onClick={handleOpen}>
               İletişim
             </Button>

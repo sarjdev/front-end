@@ -15,80 +15,86 @@ type FilteredCardType = {
 };
 
 const FilteredCard: FC<FilteredCardType> = ({ handleClickToCenter }) => {
-  const { filteredLocationData, actions } = generalStore();
+  const { filteredLocationData } = generalStore();
   const mdUp = useResponsive("up", "md");
+
+  console.log(filteredLocationData);
 
   return (
     <div className={classNames("card-container", { "card-container-responsive": !mdUp })}>
-      {filteredLocationData?.total
-        ? filteredLocationData?.chargingStations?.map((item) => (
-            <div
-              key={item.id}
-              className={classNames("card-item", { "card-item-responsive": !mdUp })}>
-              <div className="card-item-header">
-                <h5 className="card-item-header-title">{item?.title}</h5>
-                <Link
-                  href={handleClickProvider(item?.provider ?? "ZES")}
-                  target="_blank"
-                  className={classNames("card-item-header-provider", {
-                    [`${item?.provider}`]: true
-                  })}>
-                  {item?.provider}
-                </Link>
-              </div>
-              <div
-                className={classNames("card-item-suitability", {
-                  "card-item-suitability-okay": item?.provideLiveStats,
-                  "card-item-suitability-notokay": !item?.provideLiveStats
+      {filteredLocationData?.total ? (
+        filteredLocationData?.chargingStations?.map((item) => (
+          <div key={item.id} className={classNames("card-item", { "card-item-responsive": !mdUp })}>
+            <div className="card-item-header">
+              <h5 className="card-item-header-title">{item?.title}</h5>
+              <Link
+                href={handleClickProvider(item?.provider ?? "ZES")}
+                target="_blank"
+                className={classNames("card-item-header-provider", {
+                  [`${item?.provider}`]: true
                 })}>
-                <p>{item?.provideLiveStats ? "Kullanıma uygun" : "Kullanıma uygun değil"}</p>
+                {item?.provider}
+              </Link>
+            </div>
+            <div
+              className={classNames("card-item-suitability", {
+                "card-item-suitability-okay": item?.provideLiveStats,
+                "card-item-suitability-notokay": !item?.provideLiveStats
+              })}>
+              <p>{item?.provideLiveStats ? "Kullanıma uygun" : "Kullanıma uygun değil"}</p>
+            </div>
+            <div className="card-item-location">
+              <Icon className="card-item-location-icon" icon="fluent:location-12-filled" />
+              <p className="card-item-location-text">{item?.address}</p>
+            </div>
+            <FilterButton
+              classes="filter-button-contained card-item-button"
+              label="Haritada Gör"
+              onClick={() => handleClickToCenter(item.location)}
+            />
+            <div className="card-item-socket">
+              <div className="card-item-socket-container">
+                <p
+                  className={classNames("card-item-socket-container-icon", {
+                    "card-item-socket-container-icon-okay": checkPlugsType(item, "AC")
+                  })}>
+                  AC
+                </p>
+                {checkPlugsType(item, "AC") ? (
+                  <>
+                    <p>{getPlugData(item, "AC", "count")} adet /</p>
+                    <p>{getPlugData(item, "AC", "power")}</p>{" "}
+                  </>
+                ) : (
+                  <p>Mevcut değil</p>
+                )}
               </div>
-              <div className="card-item-location">
-                <Icon className="card-item-location-icon" icon="fluent:location-12-filled" />
-                <p className="card-item-location-text">{item?.address}</p>
-              </div>
-              <FilterButton
-                classes="filter-button-contained card-item-button"
-                label="Haritada Gör"
-                onClick={() => handleClickToCenter(item.location)}
-              />
-              <div className="card-item-socket">
-                <div className="card-item-socket-container">
-                  <p
-                    className={classNames("card-item-socket-container-icon", {
-                      "card-item-socket-container-icon-okay": checkPlugsType(item, "AC")
-                    })}>
-                    AC
-                  </p>
-                  {checkPlugsType(item, "AC") ? (
-                    <>
-                      <p>{getPlugData(item, "AC", "count")} adet /</p>
-                      <p>{getPlugData(item, "AC", "power")}</p>{" "}
-                    </>
-                  ) : (
-                    <p>Mevcut değil</p>
-                  )}
-                </div>
-                <div className="card-item-socket-container">
-                  <p
-                    className={classNames("card-item-socket-container-icon", {
-                      "card-item-socket-container-icon-okay": checkPlugsType(item, "DC")
-                    })}>
-                    DC
-                  </p>
-                  {checkPlugsType(item, "DC") ? (
-                    <>
-                      <p>{getPlugData(item, "DC", "count")} adet /</p>
-                      <p>{getPlugData(item, "DC", "power")}</p>{" "}
-                    </>
-                  ) : (
-                    <p>Mevcut değil</p>
-                  )}
-                </div>
+              <div className="card-item-socket-container">
+                <p
+                  className={classNames("card-item-socket-container-icon", {
+                    "card-item-socket-container-icon-okay": checkPlugsType(item, "DC")
+                  })}>
+                  DC
+                </p>
+                {checkPlugsType(item, "DC") ? (
+                  <>
+                    <p>{getPlugData(item, "DC", "count")} adet /</p>
+                    <p>{getPlugData(item, "DC", "power")}</p>{" "}
+                  </>
+                ) : (
+                  <p>Mevcut değil</p>
+                )}
               </div>
             </div>
-          ))
-        : null}
+          </div>
+        ))
+      ) : (
+        <div className="card-empty">
+          {filteredLocationData?.total === undefined
+            ? "Lütfen filtreleme yapınız!"
+            : "Herhangi bir konum bilgisi bulunamadı!"}
+        </div>
+      )}
     </div>
   );
 };

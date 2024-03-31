@@ -1,12 +1,11 @@
 import { useResponsive } from "@/app/hooks/useResponsive";
-import useUserLocation from "@/app/hooks/useUserLocation";
 import { FilterFormSchema } from "@/app/schema/filterFormSchema";
 import { generalStore } from "@/app/stores/generalStore";
 import { Location } from "@/app/types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import classNames from "classnames";
 import { useSnackbar } from "notistack";
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import FormProvider from "../../Form/FormProvider/FormProvider";
 import RangeInput from "../../Form/RangeInput/RangeInput";
@@ -21,6 +20,7 @@ type FilteredCardType = {
 };
 
 const FilterForm: FC<FilteredCardType> = ({ handleClickToCenter }) => {
+  const [loading, setLoading] = useState<boolean>(false);
   const mdUp = useResponsive("up", "md");
   const methods = useForm({
     resolver: yupResolver(FilterFormSchema),
@@ -29,9 +29,8 @@ const FilterForm: FC<FilteredCardType> = ({ handleClickToCenter }) => {
       size: 10
     }
   });
-  const { actions } = generalStore();
+  const { location, actions } = generalStore();
   const { enqueueSnackbar } = useSnackbar();
-  const { location } = useUserLocation();
 
   const { watch, handleSubmit } = methods;
 
@@ -41,24 +40,28 @@ const FilterForm: FC<FilteredCardType> = ({ handleClickToCenter }) => {
 
   const onSubmit = handleSubmit(async (data) => {
     if (location && location?.[0] && location?.[1]) {
+      setLoading(true);
       try {
         filterData.mutate(
           {
-            longitude: location?.[0] ?? 0,
-            latitude: location?.[1] ?? 0,
+            longitude: location?.[1] ?? 0,
+            latitude: location?.[0] ?? 0,
             distance: data.distance,
             size: data.size
           },
           {
             onSuccess: (data) => {
+              setLoading(false);
               actions.setFilteredLocationData(data.data);
             },
             onError: (error) => {
+              setLoading(false);
               enqueueSnackbar("Konumlar filtrelenirken bir hata oluştu", { variant: "error" });
             }
           }
         );
       } catch (error) {
+        setLoading(false);
         enqueueSnackbar("Konumlar filtrelenirken bir hata oluştu", { variant: "error" });
       }
     } else {
@@ -85,7 +88,7 @@ const FilterForm: FC<FilteredCardType> = ({ handleClickToCenter }) => {
           <span>Adet {`(${values.size})`}</span>
           <RangeInput name="size" min={1} max={30} />
         </div>
-        <FilterButton classes="filter-button-contained" label="Ara" />
+        <FilterButton classes="filter-button-contained" label="Ara" isLoading={loading} />
       </FormProvider>
       <FilteredCard handleClickToCenter={handleClickToCenter} />
     </div>

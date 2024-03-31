@@ -1,5 +1,4 @@
 import { useResponsive } from "@/app/hooks/useResponsive";
-import useUserLocation from "@/app/hooks/useUserLocation";
 import { generalStore } from "@/app/stores/generalStore";
 import classNames from "classnames";
 import { useSnackbar } from "notistack";
@@ -10,8 +9,7 @@ import "./styles.scss";
 
 const FilterButtonGroup: FC = () => {
   const mdUp = useResponsive("up", "md");
-  const { actions } = generalStore();
-  const { location } = useUserLocation();
+  const { location, actions } = generalStore();
   const { enqueueSnackbar } = useSnackbar();
 
   const handleClickFilterButton = () => {

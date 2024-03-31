@@ -59,6 +59,8 @@ const MapContent: FC = () => {
     }
   };
 
+  console.log(userLocation);
+
   return (
     <>
       <MapContainer
@@ -66,7 +68,7 @@ const MapContent: FC = () => {
         zoomControl={false}
         attributionControl={false}
         center={locationCenter}
-        zoom={zoom}
+        zoom={userLocation ? 14 : zoom}
         minZoom={7}
         zoomSnap={1}
         zoomDelta={1}

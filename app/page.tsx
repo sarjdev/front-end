@@ -52,7 +52,6 @@ export default function Home() {
           warning: StyledNotistack,
           error: StyledNotistack
         }}
-        // with close as default
         action={(snackbarId) => (
           <IconButton size="small" onClick={() => closeSnackbar(snackbarId)} sx={{ p: 0.5 }}>
             <Icon width={16} icon="mingcute:close-line" />

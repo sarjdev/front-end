@@ -1,0 +1,51 @@
+@import "../../../../app/assets/styles/variables";
+
+.range-input {
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    cursor: pointer;
+    outline: none;
+    overflow: hidden;
+    border-radius: 16px;
+
+    &::-webkit-slider-runnable-track {
+      height: 15px;
+      background: $color-gray-4;
+      border-radius: 16px;
+    }
+
+    &::-moz-range-track {
+      height: 15px;
+      background: $color-gray-4;
+      border-radius: 16px;
+    }
+
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      height: 15px;
+      width: 15px;
+      background-color: $color-white;
+      border-radius: 50%;
+      border: 2px solid $color-black;
+      box-shadow: -407px 0 0 400px $color-black;
+    }
+
+    &::-moz-range-thumb {
+      height: 15px;
+      width: 15px;
+      background-color: $color-white;
+      border-radius: 50%;
+      border: 1px solid $color-black;
+      box-shadow: -407px 0 0 400px $color-black;
+    }
+  }
+
+  &-error {
+    font-size: 1rem;
+    color: $color-red;
+    padding: 0.2rem;
+  }
+}

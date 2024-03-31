@@ -1,5 +1,5 @@
-import React from "react";
 import { useResponsive } from "@/app/hooks/useResponsive";
+import { Icon } from "@iconify-icon/react/dist/iconify.js";
 import {
   Box,
   Dialog,
@@ -11,7 +11,7 @@ import {
   Typography
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { Icon } from "@iconify-icon/react/dist/iconify.js";
+import { FC } from "react";
 
 type Props = {
   open: boolean;
@@ -28,7 +28,7 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   }
 }));
 
-const HeaderDialog = ({ open, handleOpen, handleClose }: Props) => {
+const HeaderDialog: FC<Props> = ({ open, handleOpen, handleClose }) => {
   const mdUp = useResponsive("up", "md");
 
   return (

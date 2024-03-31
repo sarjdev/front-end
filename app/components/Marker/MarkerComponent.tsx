@@ -8,7 +8,7 @@ import msIcon from "@/app/assets/images/ms.svg";
 import mzIcon from "@/app/assets/images/mz.svg";
 import { Providers, ProvidersEnum, TooltipData } from "@/app/types";
 import Leaflet, { LatLngExpression } from "leaflet";
-import { useLayoutEffect, useState } from "react";
+import { FC, useLayoutEffect, useState } from "react";
 import { Marker, Popup } from "react-leaflet";
 import CustomPopup from "./CustomPopup/CustomPopup";
 import ErrorPopup from "./ErrorPopup/ErrorPopup";
@@ -23,7 +23,7 @@ interface MarkerProps {
   chargingStationId: string;
 }
 
-const MarkerComponent: React.FC<MarkerProps> = ({ position, icon, chargingStationId }) => {
+const MarkerComponent: FC<MarkerProps> = ({ position, icon, chargingStationId }) => {
   const [tooltipData, setTooltipData] = useState<TooltipData | null>(null);
   const [hasError, setHasError] = useState<boolean>(false);
 

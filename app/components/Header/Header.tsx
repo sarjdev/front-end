@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { AppBar, Button, Link, Stack, Toolbar } from "@mui/material";
-import { useResponsive } from "@/app/hooks/useResponsive";
 import Logo from "@/app/assets/images/sarjdev-logo.png";
+import { useResponsive } from "@/app/hooks/useResponsive";
+import { AppBar, Button, Link, Stack, Toolbar } from "@mui/material";
 import Image from "next/image";
+import { FC, useState } from "react";
 import HeaderDialog from "./HeaderDialog/HeaderDialog";
 
 import "./styles.scss";
 
-const Header = () => {
+const Header: FC = () => {
   const mdUp = useResponsive("up", "md");
   const [open, setOpen] = useState(false);
 

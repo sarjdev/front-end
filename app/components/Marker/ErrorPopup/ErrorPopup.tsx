@@ -1,6 +1,6 @@
-import React from "react";
 import { Icon } from "@iconify-icon/react/dist/iconify.js";
 import Link from "next/link";
+import { FC } from "react";
 
 import "./style.scss";
 
@@ -8,7 +8,7 @@ export interface ErrorPopupType {
   locationLink: string;
 }
 
-const ErrorPopup = ({ locationLink }: ErrorPopupType) => {
+const ErrorPopup: FC<ErrorPopupType> = ({ locationLink }) => {
   return (
     <div className="error-popup">
       <Icon icon="ic:baseline-error" className="error-popup-icon" />

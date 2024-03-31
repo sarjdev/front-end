@@ -1,7 +1,6 @@
 import classNames from "classnames";
+import { FC } from "react";
 import { FormProvider as Form, UseFormReturn } from "react-hook-form";
-
-// ----------------------------------------------------------------------
 
 type Props = {
   children: React.ReactNode;
@@ -10,7 +9,7 @@ type Props = {
   onSubmit?: VoidFunction;
 };
 
-export default function FormProvider({ children, onSubmit, methods, className }: Props) {
+const FormProvider: FC<Props> = ({ children, onSubmit, methods, className }) => {
   return (
     <Form {...methods}>
       <form onSubmit={onSubmit} className={classNames([className])}>
@@ -18,4 +17,6 @@ export default function FormProvider({ children, onSubmit, methods, className }:
       </form>
     </Form>
   );
-}
+};
+
+export default FormProvider;

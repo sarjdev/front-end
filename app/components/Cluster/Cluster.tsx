@@ -1,5 +1,6 @@
 import { LocationResponse } from "@/app/types";
 import L from "leaflet";
+import { FC } from "react";
 import { Marker, useMap } from "react-leaflet";
 import useSupercluster from "use-supercluster";
 import MarkerComponent from "../Marker/MarkerComponent";
@@ -20,7 +21,7 @@ type Props = {
   data: LocationResponse[] | null;
 };
 
-export const Cluster = ({ data }: Props) => {
+export const Cluster: FC<Props> = ({ data }) => {
   const map = useMap();
   const bounds = map.getBounds();
 

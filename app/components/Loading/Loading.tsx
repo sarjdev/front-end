@@ -1,8 +1,8 @@
-import React from "react";
+import { FC } from "react";
 
 import "./styles.scss";
 
-const Loading = () => {
+const Loading: FC = () => {
   return (
     <div className="loading-screen">
       <div className="dot"></div>

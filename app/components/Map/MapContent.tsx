@@ -6,7 +6,7 @@ import { useMapGeographyStore } from "@/app/stores/mapGeographyStore";
 import { FilteredLocationData, Location } from "@/app/types";
 import classNames from "classnames";
 import { latLng, latLngBounds } from "leaflet";
-import { useRef } from "react";
+import { FC, useRef } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import BottomSheet from "../BottomSheet/BottomSheet";
 import { Cluster } from "../Cluster/Cluster";
@@ -26,7 +26,7 @@ const MapEvents = () => {
   return null;
 };
 
-const MapContent = () => {
+const MapContent: FC = () => {
   const { zoom } = useMapGeographyStore();
   const locationData = useGetLocations();
   const { location: userLocation, loading } = useUserLocation();

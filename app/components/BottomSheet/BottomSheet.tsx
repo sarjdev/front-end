@@ -1,15 +1,16 @@
 import { useResponsive } from "@/app/hooks/useResponsive";
 import classNames from "classnames";
-import React from "react";
+import { FC, ReactNode } from "react";
+
 import "./styles.scss";
 
 interface BottomSheetModalProps {
   isOpen: boolean;
   onClose: () => void;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
-const BottomSheet: React.FC<BottomSheetModalProps> = ({ isOpen, onClose, children }) => {
+const BottomSheet: FC<BottomSheetModalProps> = ({ isOpen, onClose, children }) => {
   const mdUp = useResponsive("up", "md");
 
   return (

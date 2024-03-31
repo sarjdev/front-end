@@ -2,17 +2,17 @@ import { useDebounce } from "@/app/hooks/useDebounce";
 import { useResponsive } from "@/app/hooks/useResponsive";
 import { SuggestionLocation } from "@/app/types";
 import { Autocomplete, TextField } from "@mui/material";
-import React, { useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import ReactHtmlParser from "react-html-parser";
 import { useMap } from "react-leaflet";
 import { useSearch } from "./actions";
 
 import "./styles.scss";
 
-const SearchBar = () => {
+const SearchBar: FC = () => {
   const map = useMap();
-  const [inputValue, setInputValue] = React.useState("");
-  const [options, setOptions] = React.useState<SuggestionLocation[]>([]);
+  const [inputValue, setInputValue] = useState("");
+  const [options, setOptions] = useState<SuggestionLocation[]>([]);
   const mdUp = useResponsive("up", "md");
 
   const debouncedValue = useDebounce(inputValue);

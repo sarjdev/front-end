@@ -82,7 +82,7 @@ const HeaderDialog: FC<Props> = ({ open, handleOpen, handleClose }) => {
             Yusuf Yılmaz
           </Typography>
           <Typography gutterBottom variant="subtitle1">
-            Backend Developer
+            Back-end Developer
           </Typography>
           <Stack
             display="flex"
@@ -99,7 +99,7 @@ const HeaderDialog: FC<Props> = ({ open, handleOpen, handleClose }) => {
             </Link>
             <Link
               sx={{ textDecoration: "none", color: "#000" }}
-              href="https://linkedin.com/in/mehmettmutlu/"
+              href="https://github.com/yusufyilmazfr"
               target="_blank">
               <Icon icon="mdi:github" width={38} />
             </Link>
@@ -118,7 +118,7 @@ const HeaderDialog: FC<Props> = ({ open, handleOpen, handleClose }) => {
             Mehmet Mutlu
           </Typography>
           <Typography gutterBottom variant="subtitle1">
-            Frontend Developer
+            Front-end Developer
           </Typography>
           <Stack
             display="flex"
@@ -135,7 +135,7 @@ const HeaderDialog: FC<Props> = ({ open, handleOpen, handleClose }) => {
             </Link>
             <Link
               sx={{ textDecoration: "none", color: "#000" }}
-              href="https://linkedin.com/in/mehmettmutlu/"
+              href="https://github.com/MhmtMutlu"
               target="_blank">
               <Icon icon="mdi:github" width={38} />
             </Link>

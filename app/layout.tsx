@@ -6,7 +6,7 @@ import { GoogleAnalytics } from '@next/third-parties/google'
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Sarj.dev - Elektrikli Araç Şarj İstasyonları Haritası",
+  title: "sarj.dev - Elektrikli Araç Şarj İstasyonları Haritası",
   description:
     "Elektrikli araçlar için şarj istasyonlarını bulabileceğiniz interaktif harita uygulaması. sarj.dev ile şarj istasyonlarını bulun ve kullanımınızı kolaylaştırın.",
   keywords: "sarj, sarj.dev, elektrikli araç, şarj, şarj istasyonu, ",

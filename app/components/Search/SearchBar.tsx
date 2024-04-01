@@ -3,7 +3,7 @@ import { useResponsive } from "@/app/hooks/useResponsive";
 import { SuggestionLocation } from "@/app/types";
 import { Autocomplete, TextField } from "@mui/material";
 import { useSnackbar } from "notistack";
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import ReactHtmlParser from "react-html-parser";
 import { useMap } from "react-leaflet";
 import { useSearch } from "./actions";
@@ -16,6 +16,7 @@ const SearchBar: FC = () => {
   const [options, setOptions] = useState<SuggestionLocation[]>([]);
   const mdUp = useResponsive("up", "md");
   const { enqueueSnackbar } = useSnackbar();
+  const inputRef = useRef<any>(null);
 
   const debouncedValue = useDebounce(inputValue);
 
@@ -39,51 +40,54 @@ const SearchBar: FC = () => {
     }
   }, [debouncedValue]);
 
-  return (
-    <Autocomplete
-      className="searchbar"
-      sx={{
-        width: mdUp ? 400 : "calc(100% - 4rem)",
-        position: "absolute",
-        top: mdUp ? "10rem" : "13rem",
-        left: "2rem",
-        zIndex: 400
-      }}
-      filterOptions={(x) => x}
-      options={options}
-      autoComplete
-      includeInputInList
-      filterSelectedOptions
-      noOptionsText="Kelime yazarak arama yapabilirsiniz"
-      onChange={(event: any, newValue: SuggestionLocation | null) => {
-        setOptions(newValue ? [newValue, ...options] : options);
-      }}
-      onInputChange={(event, newInputValue) => {
-        setInputValue(newInputValue);
-      }}
-      renderInput={(params) => <TextField {...params} label="Lokasyon ara..." fullWidth />}
-      renderOption={(props, option) => {
-        const containsBold = /<b>(.*?)<\/b>/g.test(option.highlightedText);
+  const handleClickOption = (option: SuggestionLocation) => {
+    map.flyTo([option.chargingStation.location.lat, option.chargingStation.location.lon], 17, {
+      animate: true
+    });
+    setOptions([]);
+    setInputValue("");
+    inputRef.current.blur();
+    inputRef.current?.querySelector("input").blur();
+  };
 
-        return (
-          <li
-            {...props}
-            key={option.highlightedText}
-            className="searchbar-list-item"
-            onClick={() => {
-              map.flyTo(
-                [option.chargingStation.location.lat, option.chargingStation.location.lon],
-                17,
-                {
-                  animate: true
-                }
-              );
-            }}>
-            {ReactHtmlParser(option.highlightedText)}
-          </li>
-        );
-      }}
-    />
+  return (
+    <>
+      <Autocomplete
+        autoComplete
+        includeInputInList
+        filterSelectedOptions
+        ref={inputRef}
+        className="searchbar"
+        sx={{
+          width: mdUp ? 400 : "calc(100% - 4rem)",
+          position: "absolute",
+          top: mdUp ? "10rem" : "16rem",
+          left: "2rem",
+          zIndex: 400
+        }}
+        filterOptions={(x) => x}
+        options={options}
+        noOptionsText="Kelime yazarak arama yapabilirsiniz"
+        onChange={(event: any, newValue: SuggestionLocation | null) => {
+          setOptions(newValue ? [newValue, ...options] : options);
+        }}
+        onInputChange={(event, newInputValue) => {
+          setInputValue(newInputValue);
+        }}
+        renderInput={(params) => <TextField {...params} label="Lokasyon ara..." fullWidth />}
+        renderOption={(props, option) => {
+          return (
+            <li
+              {...props}
+              key={option.highlightedText}
+              className="searchbar-list-item"
+              onClick={() => handleClickOption(option)}>
+              {ReactHtmlParser(option.highlightedText)}
+            </li>
+          );
+        }}
+      />
+    </>
   );
 };
 

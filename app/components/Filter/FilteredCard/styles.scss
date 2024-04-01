@@ -152,3 +152,22 @@
     }
   }
 }
+
+@media (max-width: $mobile-device) {
+  .card {
+    &-container {
+      width: 100%;
+      height: 70%;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      overflow-x: auto;
+      margin: 0;
+      margin-top: 3rem;
+    }
+
+    &-item {
+      flex: 0 1 220px;
+    }
+  }
+}

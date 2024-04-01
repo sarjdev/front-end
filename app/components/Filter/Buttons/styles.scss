@@ -13,25 +13,22 @@
 
   &-responsive {
     width: calc(100% - 4rem);
-    top: 8rem;
+    top: 10rem;
     justify-content: "center";
   }
 
   &-button {
     width: 100%;
+    flex: 1 0 200px;
+    min-height: 4rem;
+    max-height: 4rem;
     font-size: 1.2rem;
     font-weight: bold;
     text-transform: unset;
-    min-height: 4rem;
     border-radius: 4px;
     padding: 0.5rem 2rem;
     cursor: pointer;
     transition: 0.3s ease-in-out;
-
-    &-web {
-      flex: 1 0 200px;
-      max-height: 3rem;
-    }
 
     &-outlined {
       background-color: $color-white;
@@ -52,6 +49,20 @@
         background-color: $color-gray-3;
         color: $color-white !important;
       }
+    }
+  }
+}
+
+@media (max-width: $mobile-device) {
+  .filter {
+    width: calc(100% - 4rem);
+    top: 10rem;
+    justify-content: "center";
+
+    &-button {
+      flex: 0 1 100%;
+      font-size: 1.5rem;
+      min-height: 5rem;
     }
   }
 }

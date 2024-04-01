@@ -1,4 +1,3 @@
-import { useResponsive } from "@/app/hooks/useResponsive";
 import { generalStore } from "@/app/stores/generalStore";
 import { Location } from "@/app/types";
 import { checkPlugsType, getPlugData, handleClickProvider } from "@/app/utils/general-utils";
@@ -16,13 +15,12 @@ type FilteredCardType = {
 
 const FilteredCard: FC<FilteredCardType> = ({ handleClickToCenter }) => {
   const { filteredLocationData } = generalStore();
-  const mdUp = useResponsive("up", "md");
 
   return (
-    <div className={classNames("card-container", { "card-container-responsive": !mdUp })}>
+    <div className="card-container">
       {filteredLocationData?.total ? (
         filteredLocationData?.chargingStations?.map((item) => (
-          <div key={item.id} className={classNames("card-item", { "card-item-responsive": !mdUp })}>
+          <div key={item.id} className="card-item">
             <div className="card-item-header">
               <h5 className="card-item-header-title">{item?.title}</h5>
               <Link
@@ -34,12 +32,8 @@ const FilteredCard: FC<FilteredCardType> = ({ handleClickToCenter }) => {
                 {item?.provider}
               </Link>
             </div>
-            <div
-              className={classNames("card-item-suitability", {
-                "card-item-suitability-okay": item?.provideLiveStats,
-                "card-item-suitability-notokay": !item?.provideLiveStats
-              })}>
-              <p>{item?.provideLiveStats ? "Kullanıma uygun" : "Kullanıma uygun değil"}</p>
+            <div className="card-item-suitability card-item-suitability-okay">
+              <p>Kullanıma uygun</p>
             </div>
             <div className="card-item-location">
               <Icon className="card-item-location-icon" icon="fluent:location-12-filled" />

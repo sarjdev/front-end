@@ -1,6 +1,4 @@
-import { useResponsive } from "@/app/hooks/useResponsive";
 import { generalStore } from "@/app/stores/generalStore";
-import classNames from "classnames";
 import { useSnackbar } from "notistack";
 import { FC } from "react";
 import FilterButton from "./FilterButton";
@@ -8,7 +6,6 @@ import FilterButton from "./FilterButton";
 import "./styles.scss";
 
 const FilterButtonGroup: FC = () => {
-  const mdUp = useResponsive("up", "md");
   const { location, actions } = generalStore();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -23,7 +20,7 @@ const FilterButtonGroup: FC = () => {
   };
 
   return (
-    <div className={classNames("filter", { "filter-responsive": !mdUp })}>
+    <div className="filter">
       <FilterButton
         classes="filter-button-contained"
         label="Filtrele"

@@ -8,10 +8,6 @@
     height: 100%;
     z-index: 999;
 
-    &-responsive {
-      flex-direction: column;
-    }
-
     &-form {
       display: flex;
       flex-direction: column;
@@ -21,15 +17,6 @@
       height: 100%;
       padding-right: 2rem;
       border-right: 1px solid $color-gray-4;
-
-      &-responsive {
-        width: 100%;
-        height: 40%;
-        border: none;
-        padding: 0px;
-        padding-bottom: 2rem;
-        border-bottom: 1px solid $color-gray-4;
-      }
 
       div {
         display: flex;
@@ -48,6 +35,23 @@
       h3 {
         font-size: 2rem;
         font-weight: bold;
+      }
+    }
+  }
+}
+
+@media (max-width: $mobile-device) {
+  .filter {
+    &-section {
+      flex-direction: column;
+
+      &-form {
+        width: 100%;
+        height: 40%;
+        border: none;
+        padding: 0px;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid $color-gray-4;
       }
     }
   }

@@ -1,9 +1,7 @@
-import { useResponsive } from "@/app/hooks/useResponsive";
 import { FilterFormSchema } from "@/app/schema/filterFormSchema";
 import { generalStore } from "@/app/stores/generalStore";
 import { Location } from "@/app/types";
 import { yupResolver } from "@hookform/resolvers/yup";
-import classNames from "classnames";
 import { useSnackbar } from "notistack";
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -21,7 +19,6 @@ type FilteredCardType = {
 
 const FilterForm: FC<FilteredCardType> = ({ handleClickToCenter }) => {
   const [loading, setLoading] = useState<boolean>(false);
-  const mdUp = useResponsive("up", "md");
   const methods = useForm({
     resolver: yupResolver(FilterFormSchema),
     defaultValues: {
@@ -72,13 +69,8 @@ const FilterForm: FC<FilteredCardType> = ({ handleClickToCenter }) => {
   });
 
   return (
-    <div className={classNames("filter-section", { "filter-section-responsive": !mdUp })}>
-      <FormProvider
-        methods={methods}
-        onSubmit={onSubmit}
-        className={classNames("filter-section-form", {
-          "filter-section-form-responsive": !mdUp
-        })}>
+    <div className="filter-section">
+      <FormProvider methods={methods} onSubmit={onSubmit} className="filter-section-form">
         <h3>Filtrele</h3>
         <div>
           <span>Mesafe {`(${values.distance} km)`}</span>

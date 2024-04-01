@@ -1,2 +1,18 @@
 @import "./_reset.scss";
 @import "./_variables.scss";
+
+:root {
+  font-size: 12px;
+}
+
+@media (max-width: $tablet-device) {
+  :root {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: $mobile-device) {
+  :root {
+    font-size: 8px;
+  }
+}

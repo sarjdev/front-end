@@ -1,12 +1,5 @@
-:root {
-  font-size: 12px;
-}
-
-@media (max-width: 992px) {
-  :root {
-    font-size: 10px;
-  }
-}
+$tablet-device: 1024px;
+$mobile-device: 480px;
 
 $color-white: #ffffff;
 $color-white-2: #f4f4f4;

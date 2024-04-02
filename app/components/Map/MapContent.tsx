@@ -1,6 +1,7 @@
 "use client";
 import userLocationMarker from "@/app/assets/images/user-location.png";
 import { useMapEvents } from "@/app/hooks/useMapEvents";
+import { useResponsive } from "@/app/hooks/useResponsive";
 import useUserLocation from "@/app/hooks/useUserLocation";
 import { generalStore } from "@/app/stores/generalStore";
 import { useMapGeographyStore } from "@/app/stores/mapGeographyStore";
@@ -33,6 +34,7 @@ const MapContent: FC = () => {
   const { location: userLocation, loading } = useUserLocation();
   const { isBottomSheetOpen, actions } = generalStore();
   const mapRef = useRef<any>(null);
+  const mdDown = useResponsive("down", "md");
 
   const mapBoundaries = new LatLngBounds(new LatLng(30.0, 25.0), new LatLng(44.0, 45.0));
 
@@ -83,7 +85,7 @@ const MapContent: FC = () => {
         className={classNames("map", { "map-not-clickable": isBottomSheetOpen })}
         zoomControl={false}
         attributionControl={false}
-        center={locationCenter}
+        center={mdDown ? userLocation || locationCenter : locationCenter}
         zoom={zoom}
         minZoom={7}
         zoomSnap={1}

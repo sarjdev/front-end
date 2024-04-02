@@ -2,27 +2,20 @@
 
 .bottom-sheet {
   position: fixed;
-  bottom: -30%;
+  bottom: 0;
   left: 0;
   right: 0;
   width: 100%;
-  height: 30%;
-  transition: bottom 0.3s ease-in-out;
   z-index: 999;
 
   &-responsive {
-    position: fixed;
-    bottom: -80%;
-    left: 0;
-    right: 0;
-    width: 100%;
     height: 80%;
-    transition: bottom 0.3s ease-in-out;
-    z-index: 999;
   }
 
   &-open {
-    bottom: 0;
+    .bottom-sheet-content {
+      transform: translateY(0);
+    }
   }
 
   &-overlay {
@@ -45,11 +38,10 @@
     border-top-right-radius: 1rem;
     background-color: $color-white;
     padding: 3rem;
-    max-width: calc(100% - 3rem);
-    height: 80%;
-
-    &-responsive {
-      height: 92%;
-    }
+    max-width: 100%;
+    height: 100%;
+    transition: transform 0.3s ease-in-out;
+    transform: translateY(100%);
+    box-sizing: border-box;
   }
 }

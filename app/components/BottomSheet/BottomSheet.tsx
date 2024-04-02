@@ -15,8 +15,7 @@ const BottomSheet: FC<BottomSheetModalProps> = ({ isOpen, onClose, children }) =
 
   return (
     <div
-      className={classNames({
-        "bottom-sheet": mdUp,
+      className={classNames("bottom-sheet", {
         "bottom-sheet-open": isOpen,
         "bottom-sheet-responsive": !mdUp
       })}>

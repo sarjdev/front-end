@@ -3,6 +3,7 @@ import { LatLngTuple } from "leaflet";
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { generalStore } from "../stores/generalStore";
+import { useMapGeographyStore } from "../stores/mapGeographyStore";
 
 function useUserLocation() {
   const [location, setLocation] = useState<LatLngTuple | null>(null);
@@ -10,6 +11,9 @@ function useUserLocation() {
   const [loading, setLoading] = useState<boolean>(true);
   const { enqueueSnackbar } = useSnackbar();
   const { actions } = generalStore();
+  const {
+    actions: { setZoom }
+  } = useMapGeographyStore();
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -17,6 +21,7 @@ function useUserLocation() {
         (position) => {
           const { latitude, longitude } = position.coords;
           setLocation([latitude, longitude]);
+          setZoom(14);
           actions.setLocationData([latitude, longitude]);
           setLoading(false);
         },

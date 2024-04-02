@@ -6,7 +6,7 @@ import { generalStore } from "@/app/stores/generalStore";
 import { useMapGeographyStore } from "@/app/stores/mapGeographyStore";
 import { FilteredLocationData, Location } from "@/app/types";
 import classNames from "classnames";
-import Leaflet, { LatLngTuple, latLng, latLngBounds } from "leaflet";
+import Leaflet, { LatLng, LatLngBounds, LatLngTuple } from "leaflet";
 import { FC, useRef } from "react";
 import { MapContainer, Marker, TileLayer } from "react-leaflet";
 import BottomSheet from "../BottomSheet/BottomSheet";
@@ -34,11 +34,20 @@ const MapContent: FC = () => {
   const { isBottomSheetOpen, actions } = generalStore();
   const mapRef = useRef<any>(null);
 
-  const mapBoundaries = {
-    southWest: latLng(36.025514, 25.584519),
-    northEast: latLng(42.211024, 44.823563)
-  };
-  const bounds = latLngBounds(mapBoundaries.southWest, mapBoundaries.northEast);
+  const mapBoundaries = new LatLngBounds(new LatLng(30.0, 25.0), new LatLng(44.0, 45.0));
+
+  const additionalBounds = [
+    new LatLng(35.0, 32.0),
+    new LatLng(35.0, 38.0),
+    new LatLng(33.0, 42.0),
+    new LatLng(40.0, 45.0),
+    new LatLng(42.0, 45.0),
+    new LatLng(43.0, 28.0)
+  ];
+
+  additionalBounds.forEach((coord) => {
+    mapBoundaries.extend(coord);
+  });
 
   if (locationData?.isFetching || locationData?.isRefetching || loading) {
     return <Loading />;
@@ -82,7 +91,7 @@ const MapContent: FC = () => {
         ref={mapRef}
         preferCanvas
         maxBoundsViscosity={1}
-        maxBounds={bounds}
+        maxBounds={mapBoundaries}
         maxZoom={18}>
         <MapEvents />
         <TileLayer url={baseMapUrl} className="w-100 h-100" />

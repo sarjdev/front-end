@@ -8,7 +8,7 @@ interface State {
 }
 
 export const useMapGeographyStore = create<State>((set) => ({
-  zoom: 6,
+  zoom: 4,
   actions: {
     setZoom: (zoom) => set(() => ({ zoom }))
   }

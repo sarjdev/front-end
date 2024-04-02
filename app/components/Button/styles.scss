@@ -1,0 +1,32 @@
+@import "../../../app/assets/styles/variables";
+
+.button {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: unset;
+  border-radius: 4px;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+
+  &-outlined {
+    background-color: $color-white;
+    border: 1px solid $color-black;
+
+    &:hover {
+      background-color: $color-gray-3;
+      color: $color-white !important;
+    }
+  }
+
+  &-contained {
+    background-color: $color-black;
+    color: $color-white;
+    border: 1px solid $color-black;
+
+    &:hover {
+      background-color: $color-gray-3;
+      color: $color-white !important;
+    }
+  }
+}

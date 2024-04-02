@@ -5,9 +5,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useSnackbar } from "notistack";
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
+import Button from "../../Button/Button";
 import FormProvider from "../../Form/FormProvider/FormProvider";
 import RangeInput from "../../Form/RangeInput/RangeInput";
-import FilterButton from "../Buttons/FilterButton";
 import FilteredCard from "../FilteredCard/FilteredCard";
 import { useGetFilteredData } from "./actions";
 
@@ -80,7 +80,7 @@ const FilterForm: FC<FilteredCardType> = ({ handleClickToCenter }) => {
           <span>Adet {`(${values.size})`}</span>
           <RangeInput name="size" min={1} max={30} />
         </div>
-        <FilterButton classes="filter-button-contained" label="Ara" isLoading={loading} />
+        <Button classes="button-contained" children="Ara" isLoading={loading} />
       </FormProvider>
       <FilteredCard handleClickToCenter={handleClickToCenter} />
     </div>

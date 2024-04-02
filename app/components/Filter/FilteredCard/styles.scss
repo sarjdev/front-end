@@ -148,7 +148,17 @@
     }
 
     &-button {
-      max-height: 40px;
+      width: 100%;
+      flex: 1 0 200px;
+      min-height: 4rem;
+      max-height: 4rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-transform: unset;
+      border-radius: 4px;
+      padding: 0.5rem 2rem;
+      cursor: pointer;
+      transition: 0.3s ease-in-out;
     }
   }
 }
@@ -168,6 +178,12 @@
 
     &-item {
       flex: 0 1 220px;
+    }
+
+    &-button {
+      flex: 0 1 100%;
+      font-size: 1.5rem;
+      min-height: 5rem;
     }
   }
 }

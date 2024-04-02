@@ -1,11 +1,10 @@
 import { generalStore } from "@/app/stores/generalStore";
+import { Icon } from "@iconify-icon/react/dist/iconify.js";
 import { useSnackbar } from "notistack";
 import { FC } from "react";
-import FilterButton from "./FilterButton";
+import Button from "../../Button/Button";
 
-import "./styles.scss";
-
-const FilterButtonGroup: FC = () => {
+const FilterButton: FC = () => {
   const { location, actions } = generalStore();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -18,16 +17,13 @@ const FilterButtonGroup: FC = () => {
       });
     }
   };
-
   return (
-    <div className="filter">
-      <FilterButton
-        classes="filter-button-contained"
-        label="Filtrele"
-        onClick={handleClickFilterButton}
-      />
-    </div>
+    <Button
+      variant="contained"
+      children={<Icon icon="ion:filter-sharp" width={18} />}
+      onClick={handleClickFilterButton}
+    />
   );
 };
 
-export default FilterButtonGroup;
+export default FilterButton;

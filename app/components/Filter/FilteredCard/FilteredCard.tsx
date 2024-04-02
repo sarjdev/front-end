@@ -5,7 +5,7 @@ import { Icon } from "@iconify-icon/react/dist/iconify.js";
 import classNames from "classnames";
 import Link from "next/link";
 import { FC } from "react";
-import FilterButton from "../Buttons/FilterButton";
+import Button from "../../Button/Button";
 
 import "./styles.scss";
 
@@ -39,9 +39,9 @@ const FilteredCard: FC<FilteredCardType> = ({ handleClickToCenter }) => {
               <Icon className="card-item-location-icon" icon="fluent:location-12-filled" />
               <p className="card-item-location-text">{item?.address}</p>
             </div>
-            <FilterButton
-              classes="filter-button-contained card-item-button"
-              label="Haritada Gör"
+            <Button
+              classes="button-contained card-item-button"
+              children="Haritada Gör"
               onClick={() => handleClickToCenter(item.location)}
             />
             <div className="card-item-socket">

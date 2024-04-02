@@ -1,17 +1,18 @@
 "use client";
+import userLocationMarker from "@/app/assets/images/user-location.png";
 import { useMapEvents } from "@/app/hooks/useMapEvents";
 import useUserLocation from "@/app/hooks/useUserLocation";
 import { generalStore } from "@/app/stores/generalStore";
 import { useMapGeographyStore } from "@/app/stores/mapGeographyStore";
 import { FilteredLocationData, Location } from "@/app/types";
 import classNames from "classnames";
-import { latLng, latLngBounds } from "leaflet";
+import Leaflet, { LatLngTuple, latLng, latLngBounds } from "leaflet";
 import { FC, useRef } from "react";
-import { MapContainer, TileLayer } from "react-leaflet";
+import { MapContainer, Marker, TileLayer } from "react-leaflet";
 import BottomSheet from "../BottomSheet/BottomSheet";
 import { Cluster } from "../Cluster/Cluster";
-import FilterButtonGroup from "../Filter/Buttons/FilterButtonGroup";
 import FilterForm from "../Filter/FilterForm/FilterForm";
+import HelperButtonGroup from "../HelperButtons/HelperButtonGroup";
 import Loading from "../Loading/Loading";
 import SearchBar from "../Search/SearchBar";
 import { useGetLocations } from "./actions";
@@ -46,7 +47,7 @@ const MapContent: FC = () => {
   const dpr = window.devicePixelRatio;
   const baseMapUrl = `https://mt0.google.com/vt/scale=${dpr}&hl=en&x={x}&y={y}&z={z}`;
 
-  const locationCenter = userLocation || [39.929311, 34.405679];
+  const locationCenter: LatLngTuple = [39.9255, 32.8663];
 
   const handleClickToCenter = (location: Location) => {
     if (mapRef.current) {
@@ -59,6 +60,14 @@ const MapContent: FC = () => {
     }
   };
 
+  const userLocationIcon = new Leaflet.Icon({
+    iconUrl: userLocationMarker.src,
+    iconRetinaUrl: userLocationMarker.src,
+    iconSize: [64, 64],
+    iconAnchor: [14, 14],
+    className: "custom-icon"
+  });
+
   return (
     <>
       <MapContainer
@@ -66,7 +75,7 @@ const MapContent: FC = () => {
         zoomControl={false}
         attributionControl={false}
         center={locationCenter}
-        zoom={userLocation ? 14 : zoom}
+        zoom={zoom}
         minZoom={7}
         zoomSnap={1}
         zoomDelta={1}
@@ -78,8 +87,11 @@ const MapContent: FC = () => {
         <MapEvents />
         <TileLayer url={baseMapUrl} className="w-100 h-100" />
         <Cluster data={locationData?.data?.chargingStations || null} />
+        {zoom >= 12 && userLocation ? (
+          <Marker position={userLocation} icon={userLocationIcon} />
+        ) : null}
         <SearchBar />
-        <FilterButtonGroup />
+        <HelperButtonGroup />
       </MapContainer>
       <BottomSheet
         isOpen={isBottomSheetOpen}

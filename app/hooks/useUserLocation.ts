@@ -1,10 +1,11 @@
 "use client";
+import { LatLngTuple } from "leaflet";
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";
 import { generalStore } from "../stores/generalStore";
 
 function useUserLocation() {
-  const [location, setLocation] = useState<[number, number] | null>(null);
+  const [location, setLocation] = useState<LatLngTuple | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const { enqueueSnackbar } = useSnackbar();

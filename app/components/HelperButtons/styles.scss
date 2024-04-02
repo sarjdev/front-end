@@ -1,0 +1,21 @@
+@import "../../../app/assets/styles/variables";
+
+.helper {
+  width: 400;
+  position: absolute;
+  top: 10rem;
+  right: 2rem;
+  z-index: 400;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+@media (max-width: $mobile-device) {
+  .filter {
+    width: calc(100% - 4rem);
+    top: 10rem;
+    justify-content: "center";
+  }
+}

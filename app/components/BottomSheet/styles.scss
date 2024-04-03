@@ -1,18 +1,15 @@
 @import "../../../app/assets/styles/variables";
 
 .bottom-sheet {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  z-index: 999;
-
-  &-responsive {
-    height: 80%;
-  }
-
   &-open {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 999;
+    height: 30%;
+
     .bottom-sheet-content {
       transform: translateY(0);
     }
@@ -43,5 +40,13 @@
     transition: transform 0.3s ease-in-out;
     transform: translateY(100%);
     box-sizing: border-box;
+  }
+}
+
+@media (max-width: $mobile-device) {
+  .bottom-sheet {
+    &-open {
+      height: 80%;
+    }
   }
 }

@@ -30,3 +30,10 @@
     }
   }
 }
+
+@media (max-width: $mobile-device) {
+  .button {
+    font-size: 1.4rem;
+    min-height: 5rem;
+  }
+}

@@ -126,7 +126,9 @@ const MapContent: FC = () => {
           {markerBottomSheetData ? (
             <CustomPopup tooltipData={markerBottomSheetData} />
           ) : (
-            <LoadingPopup />
+            <div className="map-bottom-sheet-loading">
+              <LoadingPopup />
+            </div>
           )}
         </BottomSheet>
       ) : null}

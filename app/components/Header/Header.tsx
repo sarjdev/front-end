@@ -1,4 +1,4 @@
-import Logo from "@/app/assets/images/sarjdev.png";
+import Logo from "@/app/assets/images/sarjdev_logo.png";
 import { useResponsive } from "@/app/hooks/useResponsive";
 import { AppBar, Button, Link, Stack, Toolbar } from "@mui/material";
 import Image from "next/image";
@@ -34,7 +34,7 @@ const Header: FC = () => {
             px: { lg: 5 }
           }}>
           <Link component={Link} href="/" sx={{ display: "contents" }}>
-            <Image src={Logo} alt="logo image" width={mdUp ? 90 : 60} />
+            <Image src={Logo} alt="logo image" width={mdUp ? 70 : 60} />
           </Link>
 
           <Stack

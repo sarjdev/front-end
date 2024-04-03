@@ -49,7 +49,7 @@ export const Cluster: FC<Props> = ({ data }) => {
       bounds.getNorthEast().lat
     ],
     zoom: map.getZoom(),
-    options: { radius: 300, maxZoom: 17 }
+    options: { radius: 300, maxZoom: 13 }
   });
 
   return (

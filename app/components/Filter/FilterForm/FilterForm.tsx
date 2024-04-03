@@ -1,5 +1,6 @@
 import { FilterFormSchema } from "@/app/schema/filterFormSchema";
-import { generalStore } from "@/app/stores/generalStore";
+import { useGeneralStore } from "@/app/stores/generalStore";
+import { useMapGeographyStore } from "@/app/stores/mapGeographyStore";
 import { Location } from "@/app/types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useSnackbar } from "notistack";
@@ -26,7 +27,8 @@ const FilterForm: FC<FilteredCardType> = ({ handleClickToCenter }) => {
       size: 10
     }
   });
-  const { location, actions } = generalStore();
+  const { actions } = useGeneralStore();
+  const { location } = useMapGeographyStore();
   const { enqueueSnackbar } = useSnackbar();
 
   const { watch, handleSubmit } = methods;

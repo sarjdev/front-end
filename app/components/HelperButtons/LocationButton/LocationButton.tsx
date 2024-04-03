@@ -1,4 +1,5 @@
-import { generalStore } from "@/app/stores/generalStore";
+import { useGeneralStore } from "@/app/stores/generalStore";
+import { useMapGeographyStore } from "@/app/stores/mapGeographyStore";
 import { Icon } from "@iconify-icon/react/dist/iconify.js";
 import { useSnackbar } from "notistack";
 import { FC } from "react";
@@ -6,7 +7,8 @@ import { useMap } from "react-leaflet";
 import Button from "../../Button/Button";
 
 const LocationButton: FC = () => {
-  const { location, actions } = generalStore();
+  const { actions } = useGeneralStore();
+  const { location } = useMapGeographyStore();
   const map = useMap();
   const { enqueueSnackbar } = useSnackbar();
 

@@ -1,10 +1,10 @@
 "use client";
-import userLocationMarker from "@/app/assets/images/user-location.png";
 import { useMapEvents } from "@/app/hooks/useMapEvents";
 import useUserLocation from "@/app/hooks/useUserLocation";
-import { generalStore } from "@/app/stores/generalStore";
+import { useGeneralStore } from "@/app/stores/generalStore";
 import { useMapGeographyStore } from "@/app/stores/mapGeographyStore";
 import { FilteredLocationData, Location } from "@/app/types";
+import { UserLocationMarker } from "@/app/utils/general-utils";
 import classNames from "classnames";
 import Leaflet, { LatLng, LatLngBounds, LatLngTuple } from "leaflet";
 import { FC, useRef } from "react";
@@ -31,7 +31,7 @@ const MapContent: FC = () => {
   const { zoom } = useMapGeographyStore();
   const locationData = useGetLocations();
   const { location: userLocation, loading } = useUserLocation();
-  const { isBottomSheetOpen, actions } = generalStore();
+  const { isBottomSheetOpen, actions } = useGeneralStore();
   const mapRef = useRef<any>(null);
 
   const mapBoundaries = new LatLngBounds(new LatLng(30.0, 25.0), new LatLng(44.0, 45.0));
@@ -70,9 +70,9 @@ const MapContent: FC = () => {
   };
 
   const userLocationIcon = new Leaflet.Icon({
-    iconUrl: userLocationMarker.src,
-    iconRetinaUrl: userLocationMarker.src,
-    iconSize: [64, 64],
+    iconUrl: UserLocationMarker,
+    iconRetinaUrl: UserLocationMarker,
+    iconSize: [36, 36],
     iconAnchor: [14, 14],
     className: "custom-icon"
   });

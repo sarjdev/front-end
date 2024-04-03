@@ -1,4 +1,4 @@
-import { generalStore } from "@/app/stores/generalStore";
+import { useGeneralStore } from "@/app/stores/generalStore";
 import { Location } from "@/app/types";
 import { checkPlugsType, getPlugData, handleClickProvider } from "@/app/utils/general-utils";
 import { Icon } from "@iconify-icon/react/dist/iconify.js";
@@ -14,7 +14,7 @@ type FilteredCardType = {
 };
 
 const FilteredCard: FC<FilteredCardType> = ({ handleClickToCenter }) => {
-  const { filteredLocationData } = generalStore();
+  const { filteredLocationData } = useGeneralStore();
 
   return (
     <div className="card-container">

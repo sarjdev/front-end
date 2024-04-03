@@ -12,7 +12,7 @@ export interface CustomPopupType {
   isForFilteredCard?: boolean;
 }
 
-const CustomPopup: FC<CustomPopupType> = ({ tooltipData, isForFilteredCard = false }) => {
+const CustomPopup: FC<CustomPopupType> = ({ tooltipData }) => {
   return (
     <div className="custom-popup-container">
       <div className="custom-popup-header">
@@ -37,22 +37,21 @@ const CustomPopup: FC<CustomPopupType> = ({ tooltipData, isForFilteredCard = fal
         <Icon className="custom-popup-location-icon" icon="fluent:location-12-filled" />
         <p className="custom-popup-location-text">{tooltipData?.address}</p>
       </div>
-      {!isForFilteredCard ? (
-        <div className="custom-popup-button-container">
-          <Link
-            className="custom-popup-button-container-item custom-popup-button-container-direction"
-            target="_blank"
-            href={`https://www.google.com/maps?q=${tooltipData?.location?.lat},${tooltipData?.location?.lon}`}>
-            Yol Tarifi
-          </Link>
-          <Link
-            className="custom-popup-button-container-item custom-popup-button-container-payment"
-            target="_blank"
-            href={handleClickProvider(tooltipData?.provider ?? "ZES")}>
-            Şirket Bilgisi
-          </Link>
-        </div>
-      ) : null}
+
+      <div className="custom-popup-button-container">
+        <Link
+          className="custom-popup-button-container-item custom-popup-button-container-direction"
+          target="_blank"
+          href={`https://www.google.com/maps?q=${tooltipData?.location?.lat},${tooltipData?.location?.lon}`}>
+          Yol Tarifi
+        </Link>
+        <Link
+          className="custom-popup-button-container-item custom-popup-button-container-payment"
+          target="_blank"
+          href={handleClickProvider(tooltipData?.provider ?? "ZES")}>
+          Şirket Bilgisi
+        </Link>
+      </div>
 
       <div className="custom-popup-socket">
         <div className="custom-popup-socket-container">
@@ -87,12 +86,11 @@ const CustomPopup: FC<CustomPopupType> = ({ tooltipData, isForFilteredCard = fal
             <p>Mevcut değil</p>
           )}
         </div>
-        {!isForFilteredCard ? (
-          <div className="custom-popup-socket-container">
-            <Icon icon="ph:clock-bold" className="custom-popup-socket-container-clock" />
-            <p>00:00 - 23.59</p>
-          </div>
-        ) : null}
+
+        <div className="custom-popup-socket-container">
+          <Icon icon="ph:clock-bold" className="custom-popup-socket-container-clock" />
+          <p>00:00 - 23.59</p>
+        </div>
       </div>
     </div>
   );

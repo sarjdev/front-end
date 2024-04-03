@@ -70,3 +70,30 @@
 b {
   font-weight: 700;
 }
+
+@media (max-width: $mobile-device) {
+  .searchbar {
+    div {
+      label {
+        font-size: 1.4rem;
+      }
+
+      input {
+        font-size: 1.4rem;
+      }
+
+      div {
+        svg {
+          width: 2.6rem;
+          height: 2.6rem;
+        }
+      }
+    }
+
+    &-list {
+      &-item {
+        font-size: 1.4rem;
+      }
+    }
+  }
+}

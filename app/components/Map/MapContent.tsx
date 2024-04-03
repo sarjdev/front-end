@@ -20,6 +20,8 @@ import { useGetLocations } from "./actions";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet/dist/leaflet.css";
+import CustomPopup from "../Marker/CustomPopup/CustomPopup";
+import LoadingPopup from "../Marker/LoadingPopup/LoadingPopup";
 import "./styles.scss";
 
 const MapEvents = () => {
@@ -31,7 +33,8 @@ const MapContent: FC = () => {
   const { zoom } = useMapGeographyStore();
   const locationData = useGetLocations();
   const { location: userLocation, loading } = useUserLocation();
-  const { isBottomSheetOpen, actions } = useGeneralStore();
+  const { isBottomSheetOpen, isMarkerBottomSheetOpen, markerBottomSheetData, actions } =
+    useGeneralStore();
   const mapRef = useRef<any>(null);
 
   const mapBoundaries = new LatLngBounds(new LatLng(30.0, 25.0), new LatLng(44.0, 45.0));
@@ -73,8 +76,7 @@ const MapContent: FC = () => {
     iconUrl: UserLocationMarker,
     iconRetinaUrl: UserLocationMarker,
     iconSize: [36, 36],
-    iconAnchor: [14, 14],
-    className: "custom-icon"
+    iconAnchor: [14, 14]
   });
 
   return (
@@ -102,14 +104,32 @@ const MapContent: FC = () => {
         <SearchBar />
         <HelperButtonGroup />
       </MapContainer>
-      <BottomSheet
-        isOpen={isBottomSheetOpen}
-        onClose={() => {
-          actions.setBottomSheetOpen(false);
-          actions.setFilteredLocationData({} as FilteredLocationData);
-        }}>
-        <FilterForm handleClickToCenter={handleClickToCenter} />
-      </BottomSheet>
+      {!isMarkerBottomSheetOpen ? (
+        <BottomSheet
+          isOpen={isBottomSheetOpen}
+          onClose={() => {
+            actions.setBottomSheetOpen(false);
+            actions.setFilteredLocationData({} as FilteredLocationData);
+          }}>
+          <FilterForm handleClickToCenter={handleClickToCenter} />
+        </BottomSheet>
+      ) : null}
+
+      {!isBottomSheetOpen ? (
+        <BottomSheet
+          isForResponsiveMarker
+          isOpen={isMarkerBottomSheetOpen}
+          onClose={() => {
+            actions.setMarkerBottomSheetOpen(false);
+            actions.setMarkerBottomSheetData(null);
+          }}>
+          {markerBottomSheetData ? (
+            <CustomPopup tooltipData={markerBottomSheetData} />
+          ) : (
+            <LoadingPopup />
+          )}
+        </BottomSheet>
+      ) : null}
     </>
   );
 };

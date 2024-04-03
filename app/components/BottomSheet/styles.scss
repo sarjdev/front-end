@@ -39,7 +39,6 @@
     height: 100%;
     transition: transform 0.3s ease-in-out;
     transform: translateY(100%);
-    box-sizing: border-box;
   }
 }
 
@@ -47,6 +46,12 @@
   .bottom-sheet {
     &-open {
       height: 80%;
+    }
+
+    &-responsive {
+      &-marker {
+        height: auto;
+      }
     }
   }
 }

@@ -16,6 +16,8 @@ import ErrorPopup from "./ErrorPopup/ErrorPopup";
 import LoadingPopup from "./LoadingPopup/LoadingPopup";
 import { useGetCertaionLocation } from "./actions";
 
+import { useResponsive } from "@/app/hooks/useResponsive";
+import { useGeneralStore } from "@/app/stores/generalStore";
 import "./styles.scss";
 
 interface MarkerProps {
@@ -28,6 +30,8 @@ const MarkerComponent: FC<MarkerProps> = ({ position, icon, chargingStationId })
   const [tooltipData, setTooltipData] = useState<TooltipData | null>(null);
   const [hasError, setHasError] = useState<boolean>(false);
   const { enqueueSnackbar } = useSnackbar();
+  const mdUp = useResponsive("up", "md");
+  const { actions } = useGeneralStore();
 
   const getLocationDetail = useGetCertaionLocation({
     chargingStationId: chargingStationId.replace("#", "%23")
@@ -43,9 +47,17 @@ const MarkerComponent: FC<MarkerProps> = ({ position, icon, chargingStationId })
   const handleMarkerClick = async () => {
     setTooltipData(null);
     setHasError(false);
+
+    if (!mdUp) {
+      actions.setMarkerBottomSheetOpen(true);
+    }
+
     try {
       const { data } = await getLocationDetail.refetch();
-      setTooltipData(data ? { ...data, provideLiveStats: true } : null);
+
+      mdUp
+        ? setTooltipData(data ? { ...data, provideLiveStats: true } : null)
+        : actions.setMarkerBottomSheetData(data ? { ...data, provideLiveStats: true } : null);
     } catch (error) {
       enqueueSnackbar("Şarj istasyonu verisi çekilirken bir hata oluştu!", { variant: "error" });
     }
@@ -76,8 +88,7 @@ const MarkerComponent: FC<MarkerProps> = ({ position, icon, chargingStationId })
     iconUrl: renderIcon(icon) || markerIconPng.src,
     iconRetinaUrl: renderIcon(icon) || markerIconPng.src,
     iconSize: [48, 48],
-    iconAnchor: [14, 14],
-    className: "custom-icon"
+    iconAnchor: [14, 14]
   });
 
   return (
@@ -87,19 +98,21 @@ const MarkerComponent: FC<MarkerProps> = ({ position, icon, chargingStationId })
       eventHandlers={{
         click: handleMarkerClick
       }}>
-      {tooltipData ? (
-        <Popup className="popup">
-          <CustomPopup tooltipData={tooltipData} />
-        </Popup>
-      ) : hasError ? (
-        <Popup className="popup">
-          <ErrorPopup locationLink={`https://www.google.com/maps?q=${position}`} />
-        </Popup>
-      ) : (
-        <Popup className="popup">
-          <LoadingPopup />
-        </Popup>
-      )}
+      {mdUp ? (
+        tooltipData ? (
+          <Popup className="popup">
+            <CustomPopup tooltipData={tooltipData} />
+          </Popup>
+        ) : hasError ? (
+          <Popup className="popup">
+            <ErrorPopup locationLink={`https://www.google.com/maps?q=${position}`} />
+          </Popup>
+        ) : (
+          <Popup className="popup">
+            <LoadingPopup />
+          </Popup>
+        )
+      ) : null}
     </Marker>
   );
 };

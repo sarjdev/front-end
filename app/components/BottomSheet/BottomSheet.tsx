@@ -19,7 +19,7 @@ const BottomSheet: FC<BottomSheetModalProps> = ({
 }) => {
   const mdUp = useResponsive("up", "md");
 
-  return (
+  return isOpen ? (
     <div
       className={classNames("bottom-sheet", {
         "bottom-sheet-open": isOpen,
@@ -28,7 +28,7 @@ const BottomSheet: FC<BottomSheetModalProps> = ({
       <div className={classNames({ "bottom-sheet-overlay": isOpen })} onClick={onClose}></div>
       <div className="bottom-sheet-content">{children}</div>
     </div>
-  );
+  ) : null;
 };
 
 export default BottomSheet;

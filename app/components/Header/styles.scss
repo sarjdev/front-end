@@ -1,0 +1,41 @@
+@import "../../../app/assets/styles/variables";
+
+.navbar {
+  background-color: $color-black;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 500;
+  height: 7.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+
+  &-link {
+    text-decoration: none;
+    color: $color-white;
+    background-color: transparent;
+    border: none;
+    padding: 1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      color: $color-gray;
+    }
+  }
+}
+
+@media (max-width: $mobile-device) {
+  .navbar {
+    height: 8.5rem;
+
+    &-link {
+      font-size: 1.5rem;
+    }
+  }
+}

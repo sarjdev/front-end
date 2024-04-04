@@ -1,4 +1,3 @@
-"use client";
 import { LatLngTuple } from "leaflet";
 import { useSnackbar } from "notistack";
 import { useEffect, useState } from "react";

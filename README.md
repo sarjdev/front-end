@@ -4,7 +4,7 @@
   <img src="./public/apple-icon-precomposed.png"  width="200">
 </p>
 
-🌿 Welcome to **[sarj.dev](https://sarj.dev/)**! This open-source project provides a back-end solution for an interactive map application focused on Electric Vehicle (EV) charging stations across Turkey. Developed using _Nextjs, Zustand, TypeScript, SCSS, MUI, React-Leaflet, React-hook-form, Yupjs and Notistack_ this project empowers EV owners to find, track, and plan their charging needs seamlessly.
+🌿 Welcome to **[sarj.dev](https://sarj.dev/)**! This open-source project provides a back-end solution for an interactive map application focused on Electric Vehicle (EV) charging stations across Turkey. Developed using _Nextjs, Zustand, TypeScript, SCSS, MUI, React-Leaflet, React-hook-form, Yupjs, React-Query and Notistack_ this project empowers EV owners to find, track, and plan their charging needs seamlessly.
 
 ## Project Overview
 

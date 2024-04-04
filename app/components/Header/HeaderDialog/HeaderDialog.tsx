@@ -2,10 +2,10 @@ import { useResponsive } from "@/app/hooks/useResponsive";
 import { Icon } from "@iconify-icon/react/dist/iconify.js";
 import { Dialog, DialogContent, DialogTitle, IconButton } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import Link from "next/link";
 import { FC } from "react";
 import BottomSheet from "../../BottomSheet/BottomSheet";
 
-import Link from "next/link";
 import "./styles.scss";
 
 type Props = {

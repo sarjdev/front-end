@@ -6,6 +6,8 @@ import mbIcon from "@/app/assets/images/mb.svg";
 import meIcon from "@/app/assets/images/me.svg";
 import msIcon from "@/app/assets/images/ms.svg";
 import mzIcon from "@/app/assets/images/mz.svg";
+import { useResponsive } from "@/app/hooks/useResponsive";
+import { useGeneralStore } from "@/app/stores/generalStore";
 import { Providers, ProvidersEnum, TooltipData } from "@/app/types";
 import Leaflet, { LatLngExpression } from "leaflet";
 import { useSnackbar } from "notistack";
@@ -16,8 +18,6 @@ import ErrorPopup from "./ErrorPopup/ErrorPopup";
 import LoadingPopup from "./LoadingPopup/LoadingPopup";
 import { useGetCertaionLocation } from "./actions";
 
-import { useResponsive } from "@/app/hooks/useResponsive";
-import { useGeneralStore } from "@/app/stores/generalStore";
 import "./styles.scss";
 
 interface MarkerProps {

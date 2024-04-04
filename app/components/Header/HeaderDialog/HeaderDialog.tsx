@@ -1,21 +1,15 @@
 import { useResponsive } from "@/app/hooks/useResponsive";
 import { Icon } from "@iconify-icon/react/dist/iconify.js";
-import {
-  Box,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  IconButton,
-  Link,
-  Stack,
-  Typography
-} from "@mui/material";
+import { Dialog, DialogContent, DialogTitle, IconButton } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { FC } from "react";
+import BottomSheet from "../../BottomSheet/BottomSheet";
+
+import Link from "next/link";
+import "./styles.scss";
 
 type Props = {
   open: boolean;
-  handleOpen: VoidFunction;
   handleClose: VoidFunction;
 };
 
@@ -29,23 +23,45 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   }
 }));
 
-const HeaderDialog: FC<Props> = ({ open, handleOpen, handleClose }) => {
+const HeaderDialog: FC<Props> = ({ open, handleClose }) => {
   const mdUp = useResponsive("up", "md");
 
-  return (
+  const content = (
+    <>
+      <div className="content-info">
+        <h5>Yusuf Yılmaz</h5>
+        <span>Back-end Developer</span>
+        <div className="content-info-links">
+          <Link href="https://linkedin.com/in/yusufyilmazfr" target="_blank">
+            <Icon icon="mdi:linkedin" width={38} />
+          </Link>
+          <Link href="https://github.com/yusufyilmazfr" target="_blank">
+            <Icon icon="mdi:github" width={38} />
+          </Link>
+        </div>
+      </div>
+      <div className="content-info">
+        <h5>Mehmet Mutlu</h5>
+        <span>Front-end Developer</span>
+        <div className="content-info-links">
+          <Link href="https://linkedin.com/in/mehmettmutlu/" target="_blank">
+            <Icon icon="mdi:linkedin" width={38} />
+          </Link>
+          <Link href="https://github.com/MhmtMutlu" target="_blank">
+            <Icon icon="mdi:github" width={38} />
+          </Link>
+        </div>
+      </div>
+    </>
+  );
+
+  return mdUp ? (
     <BootstrapDialog
       onClose={handleClose}
-      sx={{
-        "& .MuiPaper-root": {
-          minWidth: mdUp ? "400px" : "100%"
-        },
-        "& .MuiDialogContent-root": {
-          width: mdUp ? "500px" : "unset"
-        }
-      }}
+      className="dialog"
       aria-labelledby="customized-dialog-title"
       open={open}>
-      <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
+      <DialogTitle className="dialog-title" id="customized-dialog-title">
         İletişim Bilgileri
       </DialogTitle>
       <IconButton
@@ -59,90 +75,17 @@ const HeaderDialog: FC<Props> = ({ open, handleOpen, handleClose }) => {
         }}>
         <Icon icon="material-symbols:close" />
       </IconButton>
-      <DialogContent
-        dividers
-        sx={{
-          width: mdUp ? "500px" : "100%",
-          display: "flex",
-          flexDirection: mdUp ? "row" : "column",
-          alignItems: "center",
-          gap: "10px",
-          padding: "30px"
-        }}>
-        <Box
-          sx={{
-            width: mdUp ? "calc(50% - 5px)" : "100%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "10px"
-          }}>
-          <Typography gutterBottom variant="h5">
-            Yusuf Yılmaz
-          </Typography>
-          <Typography gutterBottom variant="subtitle1">
-            Back-end Developer
-          </Typography>
-          <Stack
-            display="flex"
-            flexDirection="row"
-            alignItems="center"
-            justifyContent="center"
-            flexWrap="wrap"
-            gap="5px">
-            <Link
-              sx={{ textDecoration: "none", color: "#000" }}
-              href="https://linkedin.com/in/yusufyilmazfr"
-              target="_blank">
-              <Icon icon="mdi:linkedin" width={38} />
-            </Link>
-            <Link
-              sx={{ textDecoration: "none", color: "#000" }}
-              href="https://github.com/yusufyilmazfr"
-              target="_blank">
-              <Icon icon="mdi:github" width={38} />
-            </Link>
-          </Stack>
-        </Box>
-        <Box
-          sx={{
-            width: mdUp ? "calc(50% - 5px)" : "100%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "10px"
-          }}>
-          <Typography gutterBottom variant="h5">
-            Mehmet Mutlu
-          </Typography>
-          <Typography gutterBottom variant="subtitle1">
-            Front-end Developer
-          </Typography>
-          <Stack
-            display="flex"
-            flexDirection="row"
-            alignItems="center"
-            justifyContent="center"
-            flexWrap="wrap"
-            gap="5px">
-            <Link
-              sx={{ textDecoration: "none", color: "#000" }}
-              href="https://linkedin.com/in/mehmettmutlu/"
-              target="_blank">
-              <Icon icon="mdi:linkedin" width={38} />
-            </Link>
-            <Link
-              sx={{ textDecoration: "none", color: "#000" }}
-              href="https://github.com/MhmtMutlu"
-              target="_blank">
-              <Icon icon="mdi:github" width={38} />
-            </Link>
-          </Stack>
-        </Box>
+      <DialogContent dividers className="dialog-content">
+        {content}
       </DialogContent>
     </BootstrapDialog>
+  ) : (
+    <BottomSheet isForResponsiveMarker isOpen={open} onClose={handleClose}>
+      <div className="bottom-responsive">
+        <h4>İletişim Bilgileri</h4>
+        <div className="bottom-responsive-info">{content}</div>
+      </div>
+    </BottomSheet>
   );
 };
 

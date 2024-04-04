@@ -35,7 +35,7 @@ const Header: FC = () => {
           </button>
         </div>
       </nav>
-      <HeaderDialog open={open} handleOpen={handleOpen} handleClose={handleClose} />
+      <HeaderDialog open={open} handleClose={handleClose} />
     </>
   );
 };

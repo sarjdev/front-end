@@ -1,0 +1,29 @@
+@import "../../../app/assets/styles/variables";
+
+.accordion {
+  &-item {
+    width: 100%;
+    height: 100%;
+  }
+
+  &-title {
+    padding: 8px;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $color-gray-4;
+  }
+
+  &-content {
+    padding: 8px;
+    transition: all ease-in-out 0.3s;
+    border: 2px solid $color-gray-4;
+    background-color: $color-white;
+    max-height: calc(100vh / 3);
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+}

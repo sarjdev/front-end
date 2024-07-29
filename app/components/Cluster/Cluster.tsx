@@ -1,4 +1,3 @@
-import { LocationResponse } from "@/app/types";
 import L from "leaflet";
 import { FC } from "react";
 import { Marker, useMap } from "react-leaflet";
@@ -6,19 +5,20 @@ import useSupercluster from "use-supercluster";
 import MarkerComponent from "../Marker/MarkerComponent";
 import { findClusterData } from "./ClusterData";
 
+import { ChargingStation } from "@/app/types/search";
 import "./styles.scss";
 
 const getIcon = (count: number) => {
   const data = findClusterData(count);
 
   return L.divIcon({
-    html: `<div class="custom-cluster-inner-${data.intensity}"><span>${count}</span></div>`,
-    className: `leaflet-marker-icon marker-cluster leaflet-interactive custom-cluster`
+    html: `<div class=" custom-cluster custom-cluster-inner-${data.intensity}"><span>${count}</span></div>`,
+    className: `leaflet-marker-icon marker-cluster leaflet-interactive`
   });
 };
 
 type Props = {
-  data: LocationResponse[] | null;
+  data: ChargingStation[] | null;
 };
 
 export const Cluster: FC<Props> = ({ data }) => {
@@ -27,16 +27,16 @@ export const Cluster: FC<Props> = ({ data }) => {
 
   const geoJSON =
     data
-      ?.filter((item) => item?.location?.lat && item?.location?.lon)
+      ?.filter((item) => item?.geoLocation?.lat && item?.geoLocation?.lon)
       .map((item) => {
         return {
           type: "Feature",
           geometry: {
             type: "Point",
-            coordinates: [item.location.lon, item.location.lat]
+            coordinates: [item?.geoLocation?.lon, item?.geoLocation?.lat]
           },
           item,
-          properties: { cluster: false, id: item.id, category: item.city }
+          properties: { cluster: false, id: item.id }
         };
       }) ?? [];
 

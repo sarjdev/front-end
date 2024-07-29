@@ -1,14 +1,14 @@
 "use client";
 
 import maIcon from "@/app/assets/images/ma.svg";
-import markerIconPng from "@/app/assets/images/marker.png";
+import markerIconPng from "@/app/assets/images/marker.svg";
 import mbIcon from "@/app/assets/images/mb.svg";
 import meIcon from "@/app/assets/images/me.svg";
 import msIcon from "@/app/assets/images/ms.svg";
 import mzIcon from "@/app/assets/images/mz.svg";
 import { useResponsive } from "@/app/hooks/useResponsive";
 import { useGeneralStore } from "@/app/stores/generalStore";
-import { Providers, ProvidersEnum, TooltipData } from "@/app/types";
+import { Providers, ProvidersEnum } from "@/app/types";
 import Leaflet, { LatLngExpression } from "leaflet";
 import { useSnackbar } from "notistack";
 import { FC, useLayoutEffect, useState } from "react";
@@ -18,6 +18,7 @@ import ErrorPopup from "./ErrorPopup/ErrorPopup";
 import LoadingPopup from "./LoadingPopup/LoadingPopup";
 import { useGetCertaionLocation } from "./actions";
 
+import { SearchDetail } from "@/app/types/search-detail";
 import "./styles.scss";
 
 interface MarkerProps {
@@ -27,14 +28,14 @@ interface MarkerProps {
 }
 
 const MarkerComponent: FC<MarkerProps> = ({ position, icon, chargingStationId }) => {
-  const [tooltipData, setTooltipData] = useState<TooltipData | null>(null);
+  const [tooltipData, setTooltipData] = useState<SearchDetail | null>(null);
   const [hasError, setHasError] = useState<boolean>(false);
   const { enqueueSnackbar } = useSnackbar();
   const mdUp = useResponsive("up", "md");
   const { actions } = useGeneralStore();
 
   const getLocationDetail = useGetCertaionLocation({
-    chargingStationId: chargingStationId.replace("#", "%23")
+    chargingStationId: chargingStationId
   });
 
   useLayoutEffect(() => {
@@ -55,9 +56,7 @@ const MarkerComponent: FC<MarkerProps> = ({ position, icon, chargingStationId })
     try {
       const { data } = await getLocationDetail.refetch();
 
-      mdUp
-        ? setTooltipData(data ? { ...data, provideLiveStats: true } : null)
-        : actions.setMarkerBottomSheetData(data ? { ...data, provideLiveStats: true } : null);
+      mdUp ? setTooltipData(data ?? null) : actions.setMarkerBottomSheetData(data ?? null);
     } catch (error) {
       enqueueSnackbar("Şarj istasyonu verisi çekilirken bir hata oluştu!", { variant: "error" });
     }

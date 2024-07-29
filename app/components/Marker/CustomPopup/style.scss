@@ -75,12 +75,9 @@
         display: flex;
         align-items: center;
         font-size: 1.2rem;
-        padding: 0.5rem 0;
-        padding-left: 0.5rem;
         gap: 5px;
         margin-bottom: 1rem;
-        background-color: $color-gray-4;
-        width: calc(100% - 0.5rem);
+        width: 100%;
 
         p {
           margin: 0;
@@ -99,6 +96,38 @@
 
         &-clock {
           font-size: 2.7rem;
+        }
+
+        &-data {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+
+          &-wrapper {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+          }
+
+          &-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            h5 {
+              font-weight: bold;
+              font-size: 1.1rem;
+              text-align: center;
+            }
+
+            p {
+              font-weight: normal;
+              font-size: 1rem;
+              text-align: center;
+            }
+          }
         }
       }
     }
@@ -195,6 +224,11 @@
 
         &-provider {
           font-size: 2rem;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          -webkit-line-clamp: 1;
+          text-overflow: ellipsis;
         }
       }
 
@@ -217,12 +251,22 @@
       &-socket {
         &-container {
           font-size: 1.8rem;
-          padding: 1rem 0 1rem 1rem;
           gap: 5px;
-          margin-bottom: 1.5rem;
 
           &-clock {
             font-size: 3.7rem;
+          }
+
+          &-data {
+            &-item {
+              h5 {
+                font-size: 1.6rem;
+              }
+
+              p {
+                font-size: 1.5rem;
+              }
+            }
           }
         }
       }

@@ -1,41 +1,53 @@
-import { TooltipData } from "@/app/types";
 import { Icon } from "@iconify-icon/react/dist/iconify.js";
 import classNames from "classnames";
 import Link from "next/link";
-import { FC } from "react";
+import { FC, useState } from "react";
 
-import { checkPlugsType, getPlugData, handleClickProvider } from "@/app/utils/general-utils";
+import { SearchDetail } from "@/app/types/search-detail";
+import { checkPlugsType, getPlugData } from "@/app/utils/general-utils";
+import Accordion from "../../Accordion/Accordion";
 import "./style.scss";
 
 export interface CustomPopupType {
-  tooltipData: TooltipData;
+  tooltipData: SearchDetail;
   isForFilteredCard?: boolean;
 }
 
 const CustomPopup: FC<CustomPopupType> = ({ tooltipData }) => {
+  const [isACPlugOpen, setIsACPlugOpen] = useState<boolean>(false);
+  const [isDCPlugOpen, setIsDCPlugOpen] = useState<boolean>(false);
+
+  const DCPlugData = getPlugData(tooltipData, "DC");
+  const ACPlugData = getPlugData(tooltipData, "AC");
+
+  const handleAccordionToggle = (isAc: boolean) => {
+    setIsACPlugOpen(isAc ? !isACPlugOpen : false);
+    setIsDCPlugOpen(!isAc ? !isDCPlugOpen : false);
+  };
+
   return (
     <div className="custom-popup-container">
       <div className="custom-popup-header">
         <h5 className="custom-popup-header-title">{tooltipData?.title}</h5>
         <Link
-          href={handleClickProvider(tooltipData?.provider ?? "ZES")}
+          href={tooltipData?.reservationUrl ?? ""}
           target="_blank"
           className={classNames("custom-popup-header-provider", {
-            [`${tooltipData?.provider}`]: true
+            [`${tooltipData?.operator?.brand}`]: true
           })}>
-          {tooltipData?.provider}
+          {tooltipData?.operator?.brand}
         </Link>
       </div>
       <div
         className={classNames("custom-popup-suitability", {
-          "custom-popup-suitability-okay": tooltipData?.provideLiveStats,
-          "custom-popup-suitability-notokay": !tooltipData?.provideLiveStats
+          "custom-popup-suitability-okay": tooltipData?.stationActive,
+          "custom-popup-suitability-notokay": !tooltipData?.stationActive
         })}>
-        <p>{tooltipData?.provideLiveStats ? "Kullanıma uygun" : "Kullanıma uygun değil"}</p>
+        <p>{tooltipData?.stationActive ? "Kullanıma uygun" : "Kullanıma uygun değil"}</p>
       </div>
       <div className="custom-popup-location">
         <Icon className="custom-popup-location-icon" icon="fluent:location-12-filled" />
-        <p className="custom-popup-location-text">{tooltipData?.address}</p>
+        <p className="custom-popup-location-text">{tooltipData?.location?.address}</p>
       </div>
 
       <div className="custom-popup-button-container">
@@ -48,43 +60,99 @@ const CustomPopup: FC<CustomPopupType> = ({ tooltipData }) => {
         <Link
           className="custom-popup-button-container-item custom-popup-button-container-payment"
           target="_blank"
-          href={handleClickProvider(tooltipData?.provider ?? "ZES")}>
-          Şirket Bilgisi
+          href={tooltipData?.reservationUrl ?? ""}>
+          Rezervasyon
         </Link>
       </div>
 
       <div className="custom-popup-socket">
         <div className="custom-popup-socket-container">
-          <p
-            className={classNames("custom-popup-socket-container-icon", {
-              "custom-popup-socket-container-icon-okay": checkPlugsType(tooltipData, "AC")
-            })}>
-            AC
-          </p>
-          {checkPlugsType(tooltipData, "AC") ? (
-            <>
-              <p>{getPlugData(tooltipData, "AC", "count")} adet /</p>
-              <p>{getPlugData(tooltipData, "AC", "power")}</p>{" "}
-            </>
-          ) : (
-            <p>Mevcut değil</p>
-          )}
+          <Accordion
+            isOpen={isACPlugOpen}
+            onToggle={() => handleAccordionToggle(true)}
+            title={
+              <p
+                className={classNames("custom-popup-socket-container-icon", {
+                  "custom-popup-socket-container-icon-okay": checkPlugsType(tooltipData, "AC")
+                })}>
+                AC
+              </p>
+            }
+            content={
+              <div className="custom-popup-socket-container-data">
+                {ACPlugData?.length
+                  ? ACPlugData?.map((item) => (
+                      <div className="custom-popup-socket-container-data-wrapper">
+                        <div className="custom-popup-socket-container-data-item">
+                          <h5>Tip</h5>
+                          <p>{item.subType}</p>
+                        </div>
+                        <div className="custom-popup-socket-container-data-item">
+                          <h5>Soket Nu.</h5>
+                          <p>{item.socketNumber}</p>
+                        </div>
+                        <div className="custom-popup-socket-container-data-item">
+                          <h5>Güç</h5>
+                          <p>{item.power}</p>
+                        </div>
+                        <div className="custom-popup-socket-container-data-item">
+                          <h5>Ücret</h5>
+                          <p>₺{item.price}</p>
+                        </div>
+                        <div className="custom-popup-socket-container-data-item">
+                          <h5>Sayı</h5>
+                          <p>{item.count}</p>
+                        </div>
+                      </div>
+                    ))
+                  : "Soket mevcut değil!"}
+              </div>
+            }
+          />
         </div>
         <div className="custom-popup-socket-container">
-          <p
-            className={classNames("custom-popup-socket-container-icon", {
-              "custom-popup-socket-container-icon-okay": checkPlugsType(tooltipData, "DC")
-            })}>
-            DC
-          </p>
-          {checkPlugsType(tooltipData, "DC") ? (
-            <>
-              <p>{getPlugData(tooltipData, "DC", "count")} adet /</p>
-              <p>{getPlugData(tooltipData, "DC", "power")}</p>{" "}
-            </>
-          ) : (
-            <p>Mevcut değil</p>
-          )}
+          <Accordion
+            isOpen={isDCPlugOpen}
+            onToggle={() => handleAccordionToggle(false)}
+            title={
+              <p
+                className={classNames("custom-popup-socket-container-icon", {
+                  "custom-popup-socket-container-icon-okay": checkPlugsType(tooltipData, "DC")
+                })}>
+                DC
+              </p>
+            }
+            content={
+              <div className="custom-popup-socket-container-data">
+                {DCPlugData?.length
+                  ? DCPlugData?.map((item) => (
+                      <div className="custom-popup-socket-container-data-wrapper">
+                        <div className="custom-popup-socket-container-data-item">
+                          <h5>Tip</h5>
+                          <p>{item.subType}</p>
+                        </div>
+                        <div className="custom-popup-socket-container-data-item">
+                          <h5>Soket Nu.</h5>
+                          <p>{item.socketNumber}</p>
+                        </div>
+                        <div className="custom-popup-socket-container-data-item">
+                          <h5>Güç</h5>
+                          <p>{item.power}</p>
+                        </div>
+                        <div className="custom-popup-socket-container-data-item">
+                          <h5>Ücret</h5>
+                          <p>₺{item.price}</p>
+                        </div>
+                        <div className="custom-popup-socket-container-data-item">
+                          <h5>Sayı</h5>
+                          <p>{item.count}</p>
+                        </div>
+                      </div>
+                    ))
+                  : "Soket mevcut değil!"}
+              </div>
+            }
+          />
         </div>
 
         <div className="custom-popup-socket-container">

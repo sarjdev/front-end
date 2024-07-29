@@ -1,10 +1,10 @@
 import axiosInstance from "@/app/services/axiosInstance";
-import { LocationData } from "@/app/types";
+import { Search } from "@/app/types/search";
 import { AxiosError } from "axios";
 import { useQuery } from "react-query";
 
 export const useGetLocations = () => {
-  return useQuery<LocationData, AxiosError<LocationData>>(
+  return useQuery<Search, AxiosError<Search>>(
     ["get-location-data"],
     () => {
       return axiosInstance.get(`/search`)?.then(({ data }) => data);

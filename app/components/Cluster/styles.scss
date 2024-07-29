@@ -1,19 +1,20 @@
 @import "../../assets/styles/variables";
 
 .custom-cluster {
-  &-inner {
-    border-radius: 50%;
-    color: #212121;
-    width: 36px;
-    height: 36px;
-    opacity: 0.9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    line-height: 20px;
-    font-size: 18px;
-    font-weight: bold;
+  border-radius: 50%;
+  color: #212121;
+  width: 40px !important;
+  height: 40px !important;
+  opacity: 0.9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 20px !important;
+  font-size: 14px !important;
+  font-weight: bold;
+  padding: 12px;
 
+  &-inner {
     &-safe {
       background-color: $color-safe;
       border: 5px solid rgba($color-white, 10);

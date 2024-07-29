@@ -1,15 +1,12 @@
-import { PlugType, Providers, ProvidersEnum, TooltipData } from "../types";
+import { PlugType, Providers, ProvidersEnum } from "../types";
+import { SearchDetail, SearchDetailPlug } from "../types/search-detail";
 
-export const checkPlugsType = (tooltipData: TooltipData, type: PlugType): boolean => {
+export const checkPlugsType = (tooltipData: SearchDetail, type: PlugType): boolean => {
   return tooltipData?.plugs?.some((plug) => plug.type === type) ?? false;
 };
 
-export const getPlugData = (
-  tooltipData: TooltipData,
-  type: PlugType,
-  data: "count" | "power"
-): string | number => {
-  return tooltipData?.plugs?.filter((plug) => plug.type === type)?.[0]?.[data] ?? "";
+export const getPlugData = (tooltipData: SearchDetail, type: PlugType): SearchDetailPlug[] => {
+  return tooltipData?.plugs?.filter((plug) => plug.type === type) ?? [];
 };
 
 export const handleClickProvider = (company: Providers): string => {

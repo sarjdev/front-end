@@ -1,10 +1,10 @@
 import axiosInstance from "@/app/services/axiosInstance";
-import { TooltipData } from "@/app/types";
+import { SearchDetail } from "@/app/types/search-detail";
 import { AxiosError } from "axios";
 import { useQuery } from "react-query";
 
 export const useGetCertaionLocation = ({ chargingStationId }: { chargingStationId: string }) => {
-  return useQuery<TooltipData, AxiosError<TooltipData>>(
+  return useQuery<SearchDetail, AxiosError<SearchDetail>>(
     ["get-certain-location-data"],
     () => {
       return axiosInstance

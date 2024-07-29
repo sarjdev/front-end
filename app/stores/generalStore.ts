@@ -1,16 +1,17 @@
 import { create } from "zustand";
-import { FilteredLocationData, TooltipData } from "../types";
+import { FilteredLocationData } from "../types";
+import { SearchDetail } from "../types/search-detail";
 
 interface State {
   isBottomSheetOpen: boolean;
   isMarkerBottomSheetOpen: boolean;
   filteredLocationData: FilteredLocationData;
-  markerBottomSheetData: TooltipData | null;
+  markerBottomSheetData: SearchDetail | null;
   actions: {
     setBottomSheetOpen: (isBottomSheetOpen: boolean) => void;
     setMarkerBottomSheetOpen: (isMarkerBottomSheetOpen: boolean) => void;
     setFilteredLocationData: (filteredLocationData: FilteredLocationData) => void;
-    setMarkerBottomSheetData: (markerBottomSheetData: TooltipData | null) => void;
+    setMarkerBottomSheetData: (markerBottomSheetData: SearchDetail | null) => void;
   };
 }
 

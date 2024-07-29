@@ -1,7 +1,7 @@
 "use client";
 
 import maIcon from "@/app/assets/images/ma.svg";
-import markerIconPng from "@/app/assets/images/marker.svg";
+import defaultMarker from "@/app/assets/images/marker.svg";
 import mbIcon from "@/app/assets/images/mb.svg";
 import meIcon from "@/app/assets/images/me.svg";
 import msIcon from "@/app/assets/images/ms.svg";
@@ -62,7 +62,7 @@ const MarkerComponent: FC<MarkerProps> = ({ position, icon, chargingStationId })
     }
   };
 
-  const renderIcon = (icon?: Providers) => {
+  const renderIcon = (icon?: string) => {
     if (icon) {
       switch (icon) {
         case ProvidersEnum.ESARJ:
@@ -76,16 +76,16 @@ const MarkerComponent: FC<MarkerProps> = ({ position, icon, chargingStationId })
         case ProvidersEnum.BEEFULL:
           return mbIcon.src;
         default:
-          return markerIconPng.src;
+          return defaultMarker.src;
       }
     } else {
-      return markerIconPng.src;
+      return defaultMarker.src;
     }
   };
 
   const markerIcon = new Leaflet.Icon({
-    iconUrl: renderIcon(icon) || markerIconPng.src,
-    iconRetinaUrl: renderIcon(icon) || markerIconPng.src,
+    iconUrl: renderIcon(icon) || defaultMarker.src,
+    iconRetinaUrl: renderIcon(icon) || defaultMarker.src,
     iconSize: [48, 48],
     iconAnchor: [14, 14]
   });

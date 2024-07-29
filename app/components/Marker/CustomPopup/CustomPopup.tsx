@@ -45,11 +45,16 @@ const CustomPopup: FC<CustomPopupType> = ({ tooltipData }) => {
         })}>
         <p>{tooltipData?.stationActive ? "Kullanıma uygun" : "Kullanıma uygun değil"}</p>
       </div>
-      <div className="custom-popup-location">
-        <Icon className="custom-popup-location-icon" icon="fluent:location-12-filled" />
-        <p className="custom-popup-location-text">{tooltipData?.location?.address}</p>
+      <div className="custom-popup-info">
+        <Icon className="custom-popup-info-icon" icon="fluent:location-12-filled" />
+        <p className="custom-popup-info-text">{tooltipData?.location?.address}</p>
       </div>
-
+      <div className="custom-popup-info">
+        <Icon className="custom-popup-info-icon" icon="ph:phone-fill" />
+        <Link className="custom-popup-info-text" href={`tel:${tooltipData?.phone}`}>
+          {tooltipData?.phone}
+        </Link>
+      </div>
       <div className="custom-popup-button-container">
         <Link
           className="custom-popup-button-container-item custom-popup-button-container-direction"
@@ -155,7 +160,7 @@ const CustomPopup: FC<CustomPopupType> = ({ tooltipData }) => {
           />
         </div>
 
-        <div className="custom-popup-socket-container">
+        <div className="custom-popup-socket-container padding">
           <Icon icon="ph:clock-bold" className="custom-popup-socket-container-clock" />
           <p>00:00 - 23.59</p>
         </div>

@@ -27,8 +27,8 @@ export const Cluster: FC<Props> = ({ data }) => {
 
   const geoJSON =
     data
-      ?.filter((item) => item?.geoLocation?.lat && item?.geoLocation?.lon)
-      .map((item) => {
+      ?.filter((item: ChargingStation) => item?.geoLocation?.lat && item?.geoLocation?.lon)
+      .map((item: ChargingStation) => {
         return {
           type: "Feature",
           geometry: {
@@ -82,7 +82,7 @@ export const Cluster: FC<Props> = ({ data }) => {
           <MarkerComponent
             key={`cluster-${cluster.properties.id}`}
             position={[latitude, longitude]}
-            icon={cluster?.item?.provider}
+            icon={cluster?.item?.operator?.id}
             chargingStationId={id}
           />
         );

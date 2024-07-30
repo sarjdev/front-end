@@ -1,12 +1,12 @@
 import { useGeneralStore } from "@/app/stores/generalStore";
 import { Location } from "@/app/types";
-import { checkPlugsType, getPlugData, handleClickProvider } from "@/app/utils/general-utils";
 import { Icon } from "@iconify-icon/react/dist/iconify.js";
 import classNames from "classnames";
 import Link from "next/link";
 import { FC } from "react";
 import Button from "../../Button/Button";
 
+import { checkPlugsType, getPlugData } from "@/app/utils/general-utils";
 import "./styles.scss";
 
 type FilteredCardType = {
@@ -24,20 +24,30 @@ const FilteredCard: FC<FilteredCardType> = ({ handleClickToCenter }) => {
             <div className="card-item-header">
               <h5 className="card-item-header-title">{item?.title}</h5>
               <Link
-                href={handleClickProvider(item?.provider ?? "ZES")}
+                href={item?.reservationUrl || ""}
                 target="_blank"
                 className={classNames("card-item-header-provider", {
-                  [`${item?.provider}`]: true
+                  [`${item?.operator.brand}`]: true
                 })}>
-                {item?.provider}
+                {item?.operator.brand}
               </Link>
             </div>
-            <div className="card-item-suitability card-item-suitability-okay">
-              <p>Kullanıma uygun</p>
+            <div
+              className={classNames("card-item-suitability", {
+                "card-item-suitability-okay": item?.stationActive,
+                "card-item-suitability-notokay": !item?.stationActive
+              })}>
+              <p>{item?.stationActive ? "Kullanıma uygun" : "Kullanıma uygun değil"}</p>
             </div>
             <div className="card-item-location">
               <Icon className="card-item-location-icon" icon="fluent:location-12-filled" />
-              <p className="card-item-location-text">{item?.address}</p>
+              <p className="card-item-location-text">{item?.location?.address}</p>
+            </div>
+            <div className="card-item-location">
+              <Icon className="card-item-location-icon" icon="ph:phone-fill" />
+              <Link href={`tel:${item?.phone}`} className="card-item-location-text">
+                {item?.phone}
+              </Link>
             </div>
             <Button
               classes="button-contained card-item-button"
@@ -53,10 +63,9 @@ const FilteredCard: FC<FilteredCardType> = ({ handleClickToCenter }) => {
                   AC
                 </p>
                 {checkPlugsType(item, "AC") ? (
-                  <>
-                    <p>{getPlugData(item, "AC", "count")} adet /</p>
-                    <p>{getPlugData(item, "AC", "power")}</p>{" "}
-                  </>
+                  <p>
+                    {getPlugData(item, "AC")?.reduce((curr, next) => curr + next.count, 0)} adet
+                  </p>
                 ) : (
                   <p>Mevcut değil</p>
                 )}
@@ -69,15 +78,24 @@ const FilteredCard: FC<FilteredCardType> = ({ handleClickToCenter }) => {
                   DC
                 </p>
                 {checkPlugsType(item, "DC") ? (
-                  <>
-                    <p>{getPlugData(item, "DC", "count")} adet /</p>
-                    <p>{getPlugData(item, "DC", "power")}</p>{" "}
-                  </>
+                  <p>
+                    {getPlugData(item, "DC")?.reduce((curr, next) => curr + next.count, 0)} adet
+                  </p>
                 ) : (
                   <p>Mevcut değil</p>
                 )}
               </div>
+              <div className="card-item-socket-container">
+                <Icon
+                  icon="mdi:map-marker-distance"
+                  className="card-item-socket-container-distance"
+                />
+                <p>{item.distance} km kuş uçuşu mesafede</p>
+              </div>
             </div>
+            <p className="card-item-sub-info">
+              Detaylı bilgi için "Haritada Gör" butonuna tıklayınız!
+            </p>
           </div>
         ))
       ) : (

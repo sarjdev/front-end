@@ -1,11 +1,19 @@
 import { PlugType, Providers, ProvidersEnum } from "../types";
-import { SearchDetail, SearchDetailPlug } from "../types/search-detail";
+import { Plug } from "../types/common";
+import { SearchDetail } from "../types/search-detail";
+import { SearchNearestChargingStation } from "../types/search-nearest";
 
-export const checkPlugsType = (tooltipData: SearchDetail, type: PlugType): boolean => {
+export const checkPlugsType = (
+  tooltipData: SearchDetail | SearchNearestChargingStation,
+  type: PlugType
+): boolean => {
   return tooltipData?.plugs?.some((plug) => plug.type === type) ?? false;
 };
 
-export const getPlugData = (tooltipData: SearchDetail, type: PlugType): SearchDetailPlug[] => {
+export const getPlugData = (
+  tooltipData: SearchDetail | SearchNearestChargingStation,
+  type: PlugType
+): Plug[] => {
   return tooltipData?.plugs?.filter((plug) => plug.type === type) ?? [];
 };
 

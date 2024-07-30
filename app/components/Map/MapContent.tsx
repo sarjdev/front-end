@@ -3,7 +3,7 @@ import { useMapEvents } from "@/app/hooks/useMapEvents";
 import useUserLocation from "@/app/hooks/useUserLocation";
 import { useGeneralStore } from "@/app/stores/generalStore";
 import { useMapGeographyStore } from "@/app/stores/mapGeographyStore";
-import { FilteredLocationData, Location } from "@/app/types";
+import { Location } from "@/app/types";
 import { UserLocationMarker } from "@/app/utils/general-utils";
 import classNames from "classnames";
 import Leaflet, { LatLng, LatLngBounds, LatLngTuple } from "leaflet";
@@ -17,6 +17,7 @@ import Loading from "../Loading/Loading";
 import SearchBar from "../Search/SearchBar";
 import { useGetLocations } from "./actions";
 
+import { SearchNearest } from "@/app/types/search-nearest";
 import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 import "leaflet.markercluster/dist/MarkerCluster.css";
 import "leaflet/dist/leaflet.css";
@@ -109,7 +110,7 @@ const MapContent: FC = () => {
           isOpen={isBottomSheetOpen}
           onClose={() => {
             actions.setBottomSheetOpen(false);
-            actions.setFilteredLocationData({} as FilteredLocationData);
+            actions.setFilteredLocationData({} as SearchNearest);
           }}>
           <FilterForm handleClickToCenter={handleClickToCenter} />
         </BottomSheet>

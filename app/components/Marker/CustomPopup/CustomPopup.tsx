@@ -76,12 +76,18 @@ const CustomPopup: FC<CustomPopupType> = ({ tooltipData }) => {
             isOpen={isACPlugOpen}
             onToggle={() => handleAccordionToggle(true)}
             title={
-              <p
-                className={classNames("custom-popup-socket-container-icon", {
-                  "custom-popup-socket-container-icon-okay": checkPlugsType(tooltipData, "AC")
-                })}>
-                AC
-              </p>
+              <div className="custom-popup-socket-container-title">
+                <p
+                  className={classNames("custom-popup-socket-container-icon", {
+                    "custom-popup-socket-container-icon-okay": checkPlugsType(tooltipData, "AC")
+                  })}>
+                  AC
+                </p>
+                <p>
+                  {getPlugData(tooltipData, "AC")?.reduce((curr, next) => curr + next.count, 0)}{" "}
+                  adet
+                </p>
+              </div>
             }
             content={
               <div className="custom-popup-socket-container-data">
@@ -120,12 +126,18 @@ const CustomPopup: FC<CustomPopupType> = ({ tooltipData }) => {
             isOpen={isDCPlugOpen}
             onToggle={() => handleAccordionToggle(false)}
             title={
-              <p
-                className={classNames("custom-popup-socket-container-icon", {
-                  "custom-popup-socket-container-icon-okay": checkPlugsType(tooltipData, "DC")
-                })}>
-                DC
-              </p>
+              <div className="custom-popup-socket-container-title">
+                <p
+                  className={classNames("custom-popup-socket-container-icon", {
+                    "custom-popup-socket-container-icon-okay": checkPlugsType(tooltipData, "DC")
+                  })}>
+                  DC
+                </p>
+                <p>
+                  {getPlugData(tooltipData, "DC")?.reduce((curr, next) => curr + next.count, 0)}{" "}
+                  adet
+                </p>
+              </div>
             }
             content={
               <div className="custom-popup-socket-container-data">

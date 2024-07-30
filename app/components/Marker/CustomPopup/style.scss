@@ -90,6 +90,13 @@
           margin: 0;
         }
 
+        &-title {
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          gap: 8px;
+        }
+
         &-icon {
           background-color: $color-gray-2;
           color: $color-gray;

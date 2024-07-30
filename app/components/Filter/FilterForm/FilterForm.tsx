@@ -51,7 +51,7 @@ const FilterForm: FC<FilteredCardType> = ({ handleClickToCenter }) => {
           {
             onSuccess: (data) => {
               setLoading(false);
-              actions.setFilteredLocationData(data.data);
+              actions.setFilteredLocationData(data);
             },
             onError: (error) => {
               setLoading(false);

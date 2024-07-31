@@ -24,7 +24,36 @@ export const metadata: Metadata = {
       rel: "icon",
       url: "/favicon.ico"
     }
-  ]
+  ],
+  openGraph: {
+    type: "website",
+    url: "https://sarj.dev",
+    title: "sarj.dev - Elektrikli Araç Şarj İstasyonları Haritası",
+    description:
+      "Elektrikli araçlar için şarj istasyonlarını bulabileceğiniz interaktif harita uygulaması. sarj.dev ile şarj istasyonlarını bulun ve kullanımınızı kolaylaştırın.",
+    images: [
+      {
+        url: "https://sarj.dev/sarjdev-logo.png",
+        width: 1200,
+        height: 630,
+        alt: "sarj.dev Logo"
+      }
+    ]
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "sarj.dev - Elektrikli Araç Şarj İstasyonları Haritası",
+    description:
+      "Elektrikli araçlar için şarj istasyonlarını bulabileceğiniz interaktif harita uygulaması. sarj.dev ile şarj istasyonlarını bulun ve kullanımınızı kolaylaştırın.",
+    images: [
+      {
+        url: "https://sarj.dev/sarjdev-logo.png",
+        width: 1200,
+        height: 630,
+        alt: "sarj.dev Logo"
+      }
+    ]
+  }
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

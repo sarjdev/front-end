@@ -7,7 +7,7 @@ import { SearchDetail } from "@/app/types/search-detail";
 import Leaflet, { LatLngExpression } from "leaflet";
 import { useSnackbar } from "notistack";
 import { FC, useLayoutEffect, useState } from "react";
-import { Marker, Popup } from "react-leaflet";
+import { Marker, Popup, useMap } from "react-leaflet";
 import CustomPopup from "./CustomPopup/CustomPopup";
 import ErrorPopup from "./ErrorPopup/ErrorPopup";
 import LoadingPopup from "./LoadingPopup/LoadingPopup";
@@ -23,6 +23,7 @@ interface MarkerProps {
 }
 
 const MarkerComponent: FC<MarkerProps> = ({ position, icon, chargingStationId }) => {
+  const map = useMap();
   const [tooltipData, setTooltipData] = useState<SearchDetail | null>(null);
   const [hasError, setHasError] = useState<boolean>(false);
   const { enqueueSnackbar } = useSnackbar();
@@ -43,6 +44,10 @@ const MarkerComponent: FC<MarkerProps> = ({ position, icon, chargingStationId })
   const handleMarkerClick = async () => {
     setTooltipData(null);
     setHasError(false);
+
+    const newLat = (position as Leaflet.LatLngTuple)?.[0] + 0.005;
+
+    map.flyTo([newLat, (position as Leaflet.LatLngTuple)?.[1]], 14);
 
     if (!mdUp) {
       actions.setMarkerBottomSheetOpen(true);

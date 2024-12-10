@@ -47,7 +47,7 @@ const MarkerComponent: FC<MarkerProps> = ({ position, icon, chargingStationId })
 
     const newLat = (position as Leaflet.LatLngTuple)?.[0] + 0.005;
 
-    map.flyTo([newLat, (position as Leaflet.LatLngTuple)?.[1]], 14);
+    map.flyTo([newLat, (position as Leaflet.LatLngTuple)?.[1]], 15);
 
     if (!mdUp) {
       actions.setMarkerBottomSheetOpen(true);
